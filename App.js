@@ -1,7 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { getDecks } from './src/utils/api';
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    getDecks()
+      .then(decks => console.log(decks))
+  }
+
   render() {
     return (
       <View style={styles.container}>

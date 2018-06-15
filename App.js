@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 
+import Card from './src/components/Card';
 import { getDecks, } from './src/utils/api';
 import { LargeTitle, Body, } from './src/utils/ui/typography';
+import { black, white, } from './src/utils/ui/colors';
 
 export default class App extends React.Component {
 
@@ -14,22 +16,18 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <LargeTitle>
-          This is LargeTitle
-        </LargeTitle>
-        <Body>
-          This is Body
-        </Body>
+        <Card>
+          Hello
+        </Card>
       </View>
     );
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: `${white}`,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -11,12 +11,12 @@ const Card = ({ children, style, }) => (
     <StyledImage
       source={{uri: 'https://images.unsplash.com/photo-1464490997959-0c65eee1cc26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a94e63e6f9e5de6163c5343adfe75689&auto=format&fit=crop&w=1350&q=80'}}
     />
-    <LargeTitle>
+    <StyledLargeTitle>
       {children}
-    </LargeTitle>
-    <Body>
+    </StyledLargeTitle>
+    <StyledBody>
       This is Body
-    </Body>
+    </StyledBody>
   </View>
 );
 
@@ -30,13 +30,22 @@ const StyledCard = styled(Card)`
 
 const StyledImage = styled(Image)`
   width: 100%;
-  height: 60%;
+  height: 65%;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-`
+`;
+
+const StyledLargeTitle = styled(LargeTitle)`
+  margin: 20px 0px 0px 20px;
+`;
+
+const StyledBody = styled(Body)`
+  margin: 5px 0px 0px 20px;
+`;
 
 Card.propTypes = {
-
+  children: PropTypes.string.isRequired,
+  style: PropTypes.array.isRequired,
 };
 
 export default StyledCard;

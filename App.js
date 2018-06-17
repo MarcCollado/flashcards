@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, } from 'react-native';
 import { AppLoading } from 'expo';
+import { createStackNavigator } from 'react-navigation';
 
+import Deck from './src/components/Deck';
 import DeckList from './src/components/DeckList';
 import { getDecks, } from './src/utils/api';
 import { LargeTitle, Body, } from './src/utils/ui/typography';
 import { black, white, } from './src/utils/ui/colors';
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
   state = {
     ready: false,
     decks: null,
@@ -34,7 +36,9 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        <DeckList>
+        <DeckList
+          navigation={this.props.navigation}
+        >
           {decks}
         </DeckList>
       </View>
@@ -50,3 +54,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+const StackNavigator = createStackNavigator(
+// RouteConfigs
+{
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: () => ({
+      title: `Decks`,
+    }),
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: () => ({
+      title: `Deck`,
+    }),
+  },
+},
+// StackNavigatorConfig
+{
+  initialRouteName: 'Home',
+},
+);
+
+export default class App extends React.Component {
+  render() {
+    return <StackNavigator />;
+  }
+}

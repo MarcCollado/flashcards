@@ -1,30 +1,31 @@
 import React from 'react';
-import { ScrollView, StyleSheet, } from 'react-native';
+import { ScrollView, StatusBar, StyleSheet, } from 'react-native';
 import PropTypes from 'prop-types';
 
 import DeckCard from './DeckCard';
 import { red, } from '../utils/ui/colors';
 
-const renderDeckCards = (decks) => {
+const renderDeckCards = (decks, navigation) => {
   const deckIDs = Object.keys(decks);
 
   return deckIDs.map(id => (
     <DeckCard
-      style={styles.deckCard}
-      key={id}
       deckCoverImage={decks[id].coverImageUrl}
       deckTitle={decks[id].title}
+      key={id}
+      navigation={navigation}
       numberOfCards={decks[id].questions.length}
+      style={styles.deckCard}
     />
   ));
 };
 
-const DeckList = ({ children }) => (
+const DeckList = ({ children, navigation, }) => (
   <ScrollView
     style={styles.container}
     contentContainerStyle={styles.contentContainer}
   >
-    {renderDeckCards(children)}
+    {renderDeckCards(children, navigation)}
   </ScrollView>
 );
 

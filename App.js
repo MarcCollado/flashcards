@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, } from 'react-native';
 import { AppLoading } from 'expo';
 import { createStackNavigator } from 'react-navigation';
 
-import Deck from './src/components/Deck';
+import DeckDetail from './src/components/DeckDetail';
 import DeckList from './src/components/DeckList';
 import { getDecks, } from './src/utils/api';
 import { LargeTitle, Body, } from './src/utils/ui/typography';
@@ -64,10 +64,10 @@ const StackNavigator = createStackNavigator(
       title: `Decks`,
     }),
   },
-  Deck: {
-    screen: Deck,
+  DeckDetail: {
+    screen: DeckDetail,
     navigationOptions: () => ({
-      title: `Deck`,
+      title: `Deck Detail`,
     }),
   },
 },

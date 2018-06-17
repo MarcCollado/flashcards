@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableHighlight, View, } from 'react-native';
+import { Image, TouchableHighlight, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -9,6 +9,7 @@ import { Title1, Body } from '../utils/ui/typography';
 const Card = ({
   deckCoverImage,
   deckTitle,
+  id,
   navigation,
   numberOfCards,
   style,
@@ -18,7 +19,14 @@ const Card = ({
       source={{ uri: deckCoverImage }}
     />
     <TouchableHighlight
-      onPress={() => navigation.navigate('Deck')}
+      onPress={() => {
+        navigation.navigate('DeckDetail', {
+          deckCoverImage,
+          deckTitle,
+          id,
+          numberOfCards,
+        });
+      }}
     >
       <CardTitle>
         {deckTitle}
@@ -56,6 +64,7 @@ const CardBody = styled(Body)`
 Card.propTypes = {
   deckCoverImage: PropTypes.string.isRequired,
   deckTitle: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired,
   numberOfCards: PropTypes.number.isRequired,
   style: PropTypes.array.isRequired,

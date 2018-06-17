@@ -26,7 +26,7 @@ const Card = ({
 );
 
 const DeckCard = styled(Card)`
-  width: 100%;
+  width: 80%;
   height: 340;
   border-radius: 8px;
   background-color: ${white};

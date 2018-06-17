@@ -1,14 +1,23 @@
 import React from 'react';
-import { View, Text, } from 'react-native';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 class Deck extends React.Component {
   state = {
-    deckCover: this.props.deckCover;
-    deckTitle: this.props.deckTitle;
-    numberOfCards: this.props.numberOfCards;
+    deckCover: this.props.deckCover,
+    deckTitle: this.props.deckTitle,
+    numberOfCards: this.props.numberOfCards,
   };
 
+  render() {
+    return (
+      <View>
+        <Text>
+          Deck Component
+        </Text>
+      </View>
+    );
+  }
 }
 
 Deck.propTypes = {

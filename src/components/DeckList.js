@@ -1,19 +1,30 @@
 import React from 'react';
-import { View, Text, Image, } from 'react-native';
+import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
-import { LargeTitle, Body, } from '../utils/ui/typography';
-import { white, black, } from '../utils/ui/colors';
+import DeckCard from './DeckCard';
 
-const DeckList = ({ style, }) => (
-  <View style={style}>
+const renderDeckCards = (decks) => {
+  const deckIDs = Object.keys(decks);
 
-  </View>
+  return deckIDs.map(id => (
+    <DeckCard
+      key={id}
+      deckCoverImage={decks[id].coverImageUrl}
+      deckTitle={decks[id].title}
+      numberOfCards={decks[id].questions.length}
+    />
+  ));
+};
+
+const DeckList = ({ children }) => (
+  <ScrollView>
+    {renderDeckCards(children)}
+  </ScrollView>
 );
 
-Card.propTypes = {
-  style: PropTypes.array.isRequired,
+DeckList.propTypes = {
+  children: PropTypes.object.isRequired,
 };
 
 export default DeckList;

@@ -13,10 +13,10 @@ const LargeTitle = styled.Text`
 
 const Title1 = styled.Text`
   font-weight: normal;
-  color: ${black};
   font-family: System;
   font-size: 28px;
   line-height: 34px;
+  color: ${black};
 `;
 
 const Title2 = styled.Text`
@@ -51,4 +51,11 @@ const Body = styled.Text`
   color: ${black};
 `;
 
-export { LargeTitle, Body, };
+export {
+  LargeTitle,
+  Title1,
+  Title2,
+  Title3,
+  Headline,
+  Body,
+};

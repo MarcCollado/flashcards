@@ -62,12 +62,15 @@ const StackNavigator = createStackNavigator(
     screen: HomeScreen,
     navigationOptions: () => ({
       title: `Decks`,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
     }),
   },
   DeckDetail: {
     screen: DeckDetail,
-    navigationOptions: () => ({
-      title: `Deck Detail`,
+    navigationOptions: ({ navigation }) => ({
+      title: navigation.getParam('deckTitle'),
     }),
   },
 },

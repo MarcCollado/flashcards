@@ -10,6 +10,7 @@ const pink = '#FF2D55';
 // basics
 const white = '#FFFFFF';
 const black = '#000000';
+const grey = '#95a5a6';
 
 export {
   red,
@@ -22,4 +23,5 @@ export {
   pink,
   white,
   black,
+  grey,
 };

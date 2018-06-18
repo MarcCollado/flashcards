@@ -13,30 +13,32 @@ const Card = ({
   navigation,
   numberOfCards,
   style,
-}) => (
-  <View style={style}>
-    <CardCoverImage
-      source={{ uri: deckCoverImage }}
-    />
-    <TouchableHighlight
-      onPress={() => {
-        navigation.navigate('DeckDetail', {
-          deckCoverImage,
-          deckTitle,
-          id,
-          numberOfCards,
-        });
-      }}
-    >
-      <CardTitle>
-        {deckTitle}
-      </CardTitle>
-    </TouchableHighlight>
-    <CardBody>
-      {`${numberOfCards} cards in this deck`}
-    </CardBody>
-  </View>
-);
+}) => {
+  return (
+    <View style={style}>
+      <CardCoverImage
+        source={{ uri: deckCoverImage }}
+      />
+      <TouchableHighlight
+        onPress={() => {
+          navigation.navigate('DeckDetail', {
+            deckCoverImage,
+            deckTitle,
+            id,
+            numberOfCards,
+          });
+        }}
+      >
+        <CardTitle>
+          {deckTitle}
+        </CardTitle>
+      </TouchableHighlight>
+      <CardBody>
+        {`${numberOfCards} cards in this deck`}
+      </CardBody>
+    </View>
+  );
+}
 
 const DeckCard = styled(Card)`
   width: 80%;

@@ -3,8 +3,9 @@ import { StyleSheet, Text, View, } from 'react-native';
 import { AppLoading } from 'expo';
 import { createStackNavigator } from 'react-navigation';
 
-import DeckDetail from './src/components/DeckDetail';
 import DeckList from './src/components/DeckList';
+import DeckDetail from './src/components/DeckDetail';
+import AddQuestion from './src/components/AddQuestion';
 import { getDecks, } from './src/utils/api';
 import { LargeTitle, Body, } from './src/utils/ui/typography';
 import { black, white, } from './src/utils/ui/colors';
@@ -80,8 +81,26 @@ const StackNavigator = createStackNavigator(
 },
 );
 
+const RootStack = createStackNavigator(
+  {
+    Root: {
+      screen: StackNavigator,
+    },
+    AddQuestion: {
+      screen: AddQuestion,
+      navigationOptions: ({ navigation }) => ({
+        title: navigation.getParam('id'),
+      }),
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+);
+
 export default class App extends React.Component {
   render() {
-    return <StackNavigator />;
+    return <RootStack />;
   }
 }

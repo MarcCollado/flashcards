@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { AppLoading } from 'expo';
 import { createStackNavigator } from 'react-navigation';
+import { AppLoading } from 'expo';
 
-import DeckList from './src/components/DeckList';
-import DeckDetail from './src/components/DeckDetail';
 import AddQuestion from './src/components/AddQuestion';
+import DeckDetail from './src/components/DeckDetail';
+import DeckList from './src/components/DeckList';
 import { getDecks } from './src/utils/api';
 import { white } from './src/utils/ui/colors';
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class HomeScreen extends React.Component {
+class Home extends React.Component {
   state = {
     ready: false,
     decks: null,
@@ -52,7 +52,7 @@ const StackNavigator = createStackNavigator(
   // RouteConfigs
   {
     Home: {
-      screen: HomeScreen,
+      screen: Home,
       navigationOptions: () => ({
         title: 'Decks',
         headerTitleStyle: {

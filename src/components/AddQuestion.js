@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -7,6 +7,8 @@ import { Body, Title2, Title3 } from '../utils/ui/typography';
 import { black, blue, grey, white } from '../utils/ui/colors';
 
 const AddQuestion = ({ navigation }) => {
+  const id = navigation.getParam('id');
+
   return (
     <View>
       <AddQuestionTitle>Add a question to the deck</AddQuestionTitle>
@@ -36,7 +38,7 @@ const AddQuestion = ({ navigation }) => {
         <ButtonBody>Add Question</ButtonBody>
       </SubmitButton>
 
-      <Button title="Cancel" />
+      <Button title="Cancel" onPress={() => navigation.goBack()} />
     </View>
   );
 };
@@ -73,5 +75,9 @@ const ButtonBody = styled(Body)`
   margin-top: 16px;
   color: ${white};
 `;
+
+AddQuestion.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default AddQuestion;

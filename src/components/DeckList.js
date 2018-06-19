@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 const renderDeckCards = (decks, navigation) => {
   const deckIDs = Object.keys(decks);
 
-  return deckIDs.map(id => (
+  return deckIDs.map((id) => (
     <DeckCard
       deckCoverImage={decks[id].coverImageUrl}
       deckTitle={decks[id].title}

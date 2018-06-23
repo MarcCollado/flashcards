@@ -44,19 +44,20 @@ const AddQuestion = ({ navigation }) => {
 };
 
 const AddQuestionTitle = styled(Title2)`
-  margin: 80px 0px 20px 25px;
+  margin: 60px 0px 20px 25px;
 `;
 
 const Question = styled(Title3)`
-  margin: 20px 0px 0px 25px;
+  margin: 15px 0px 0px 20px;
 `;
 
 const Answer = styled(Title3)`
-  margin: 20px 0px 0px 25px;
+  margin: 15px 0px 0px 20px;
 `;
 
 const MultilineInput = styled(TextInput)`
-  margin: 20px 25px;
+  margin: 15px 25px;
+  height: 40;
   border-bottom-color: ${black};
   border-bottom-width: 1px;
 `;

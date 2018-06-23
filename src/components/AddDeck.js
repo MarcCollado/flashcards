@@ -6,16 +6,15 @@ import styled from 'styled-components';
 import { Body, Title2, Title3 } from '../utils/ui/typography';
 import { black, blue, grey, white } from '../utils/ui/colors';
 
-const AddQuestion = ({ navigation }) => (
+const AddDeck = ({ navigation }) => (
   <View>
-    <AddQuestionTitle>Create a new deck</AddQuestionTitle>
+    <AddDeckTitle>Create a new deck</AddDeckTitle>
 
-    <Question>Deck Title</Question>
+    <Deck>Deck Title</Deck>
     <Input
       enablesReturnKeyAutomatically
       autoFocus
       maxLength={80}
-      numberOfLines={4}
       placeholder="Type the deck title..."
       placeholderTextColor={grey}
     />
@@ -28,16 +27,17 @@ const AddQuestion = ({ navigation }) => (
   </View>
 );
 
-const AddQuestionTitle = styled(Title2)`
+const AddDeckTitle = styled(Title2)`
   margin: 80px 0px 20px 25px;
 `;
 
-const Question = styled(Title3)`
+const Deck = styled(Title3)`
   margin: 20px 0px 0px 25px;
 `;
 
 const Input = styled(TextInput)`
   margin: 20px 25px;
+  height: 40px;
   border-bottom-color: ${black};
   border-bottom-width: 1px;
 `;
@@ -57,8 +57,8 @@ const ButtonBody = styled(Body)`
   color: ${white};
 `;
 
-AddQuestion.propTypes = {
+AddDeck.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default AddQuestion;
+export default AddDeck;

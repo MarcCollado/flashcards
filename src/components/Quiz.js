@@ -3,10 +3,10 @@ import { Button, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Body, Title2, Title3 } from '../utils/ui/typography';
+import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { green, red, white } from '../utils/ui/colors';
 
-class Question extends React.Component {
+class Quiz extends React.Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   };
@@ -20,7 +20,7 @@ class Question extends React.Component {
     const id = navigation.getParam('id');
 
     return (
-      <QuestionView>
+      <QuizView>
         <Progress>...Progress goes here...</Progress>
 
         <QuestionContent>...The question goes here...</QuestionContent>
@@ -36,21 +36,21 @@ class Question extends React.Component {
         <DetailButton primary>
           <ButtonBody primary>I know it</ButtonBody>
         </DetailButton>
-      </QuestionView>
+      </QuizView>
     );
   }
 }
 
-const QuestionView = styled(View)`
+const QuizView = styled(View)`
   height: 100%;
   background-color: ${white};
 `;
 
-const Progress = styled(Title2)`
+const Progress = styled(Title1)`
   margin: 60px 0px 20px 25px;
 `;
 
-const QuestionContent = styled(Title3)`
+const QuestionContent = styled(Title2)`
   margin: 15px 0px 0px 20px;
 `;
 
@@ -70,4 +70,4 @@ const ButtonBody = styled(Body)`
   color: ${(props) => (props.primary ? white : red)};
 `;
 
-export default Question;
+export default Quiz;

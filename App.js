@@ -10,14 +10,13 @@ import AddDeck from './src/components/AddDeck';
 import AddQuestion from './src/components/AddQuestion';
 import DeckDetail from './src/components/DeckDetail';
 import DeckCard from './src/components/DeckCard';
-import Question from './src/components/Question';
+import Quiz from './src/components/Quiz';
 import { getDecks } from './src/utils/api';
 import { blue, white } from './src/utils/ui/colors';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: `${white}`,
-
     width: '100%',
   },
   contentContainer: {
@@ -59,11 +58,10 @@ class Home extends React.Component {
       <DeckCard
         deckCoverImage={decks[id].coverImageUrl}
         deckTitle={decks[id].title}
-        id={id}
-        key={id}
+        id={decks[id].id}
+        key={decks[id].id}
         navigation={navigation}
-        numberOfCards={decks[id].questions.length}
-        style={styles.deckCard}
+        quiz={decks[id].quiz}
       />
     ));
   };
@@ -113,11 +111,8 @@ const StackNavigator = createStackNavigator(
         title: navigation.getParam('deckTitle'),
       }),
     },
-    Question: {
-      screen: Question,
-      navigationOptions: ({ navigation }) => ({
-        title: navigation.getParam('deckTitle'),
-      }),
+    Quiz: {
+      screen: Quiz,
     },
   },
   // StackNavigatorConfig
@@ -133,15 +128,9 @@ const RootStack = createStackNavigator(
     },
     AddDeck: {
       screen: AddDeck,
-      navigationOptions: () => ({
-        title: 'New Deck',
-      }),
     },
     AddQuestion: {
       screen: AddQuestion,
-      navigationOptions: ({ navigation }) => ({
-        title: navigation.getParam('id'),
-      }),
     },
   },
   {

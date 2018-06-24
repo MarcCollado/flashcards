@@ -7,10 +7,12 @@ import { Title1, Body } from '../utils/ui/typography';
 import { blue, white } from '../utils/ui/colors';
 
 const DeckDetail = ({ navigation }) => {
+  const id = navigation.getParam('id');
   const deckCoverImage = navigation.getParam('deckCoverImage');
   const deckTitle = navigation.getParam('deckTitle');
-  const id = navigation.getParam('id');
-  const numberOfCards = navigation.getParam('numberOfCards');
+  const quiz = navigation.getParam('quiz');
+
+  const numberOfCards = quiz.length;
 
   return (
     <DetailView>
@@ -29,7 +31,7 @@ const DeckDetail = ({ navigation }) => {
       <DetailButton
         primary
         onPress={() => {
-          navigation.navigate('Question', { id });
+          navigation.navigate('Quiz', { id });
         }}
       >
         <ButtonBody primary>Start Quiz</ButtonBody>

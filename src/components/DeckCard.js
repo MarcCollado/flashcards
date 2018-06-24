@@ -7,29 +7,28 @@ import { white } from '../utils/ui/colors';
 import { Title1, Body } from '../utils/ui/typography';
 
 const DeckCard = ({
-  deckCoverImage,
-  deckTitle,
-  id,
-  navigation,
-  numberOfCards,
-}) => (
-  <CardView>
-    <CardCoverImage source={{ uri: deckCoverImage }} />
-    <TouchableHighlight
-      onPress={() => {
-        navigation.navigate('DeckDetail', {
-          deckCoverImage,
-          deckTitle,
-          id,
-          numberOfCards,
-        });
-      }}
-    >
-      <CardTitle>{deckTitle}</CardTitle>
-    </TouchableHighlight>
-    <CardBody>{`${numberOfCards} cards in this deck`}</CardBody>
-  </CardView>
-);
+  deckCoverImage, deckTitle, id, navigation, quiz,
+}) => {
+  const numberOfCards = quiz.length;
+  return (
+    <CardView>
+      <CardCoverImage source={{ uri: deckCoverImage }} />
+      <TouchableHighlight
+        onPress={() => {
+          navigation.navigate('DeckDetail', {
+            id,
+            deckCoverImage,
+            deckTitle,
+            quiz,
+          });
+        }}
+      >
+        <CardTitle>{deckTitle}</CardTitle>
+      </TouchableHighlight>
+      <CardBody>{`${numberOfCards} cards in this deck`}</CardBody>
+    </CardView>
+  );
+};
 
 const CardView = styled(View)`
   width: 80%;
@@ -56,11 +55,11 @@ const CardBody = styled(Body)`
 `;
 
 DeckCard.propTypes = {
+  id: PropTypes.string.isRequired,
   deckCoverImage: PropTypes.string.isRequired,
   deckTitle: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired,
-  numberOfCards: PropTypes.number.isRequired,
+  quiz: PropTypes.array.isRequired,
 };
 
 export default DeckCard;

@@ -3,7 +3,7 @@ import { Button, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Body, Title2, Title3 } from '../utils/ui/typography';
+import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { black, blue, grey, white } from '../utils/ui/colors';
 
 const AddQuestion = ({ navigation }) => {
@@ -11,31 +11,31 @@ const AddQuestion = ({ navigation }) => {
 
   return (
     <View>
-      <AddQuestionTitle>Add a question to the deck</AddQuestionTitle>
+      <AddQuestionTitle>Add a new question</AddQuestionTitle>
 
-      <Question>Question</Question>
+      <AddQuestionSubtitle>Question</AddQuestionSubtitle>
       <MultilineInput
         enablesReturnKeyAutomatically
         autoFocus
         maxLength={140}
         multiline
-        numberOfLines={4}
-        placeholder="Type your question..."
+        numberOfLines={3}
+        placeholder="Type the question..."
         placeholderTextColor={grey}
       />
 
-      <Answer>Answer</Answer>
+      <AddQuestionSubtitle>Answer</AddQuestionSubtitle>
       <MultilineInput
         enablesReturnKeyAutomatically
         maxLength={140}
         multiline
-        numberOfLines={4}
-        placeholder="Type your answer..."
+        numberOfLines={3}
+        placeholder="Type the answer..."
         placeholderTextColor={grey}
       />
 
       <SubmitButton>
-        <ButtonBody>Add Question</ButtonBody>
+        <ButtonText>Add Question</ButtonText>
       </SubmitButton>
 
       <Button title="Cancel" onPress={() => navigation.goBack()} />
@@ -43,15 +43,11 @@ const AddQuestion = ({ navigation }) => {
   );
 };
 
-const AddQuestionTitle = styled(Title2)`
+const AddQuestionTitle = styled(Title1)`
   margin: 60px 0px 20px 25px;
 `;
 
-const Question = styled(Title3)`
-  margin: 15px 0px 0px 20px;
-`;
-
-const Answer = styled(Title3)`
+const AddQuestionSubtitle = styled(Title2)`
   margin: 15px 0px 0px 20px;
 `;
 
@@ -70,7 +66,7 @@ const SubmitButton = styled(TouchableOpacity)`
   background: ${blue};
 `;
 
-const ButtonBody = styled(Body)`
+const ButtonText = styled(Body)`
   font-weight: bold;
   text-align: center;
   margin-top: 16px;

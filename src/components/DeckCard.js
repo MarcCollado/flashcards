@@ -6,15 +6,14 @@ import styled from 'styled-components';
 import { white } from '../utils/ui/colors';
 import { Title1, Body } from '../utils/ui/typography';
 
-const Card = ({
+const DeckCard = ({
   deckCoverImage,
   deckTitle,
   id,
   navigation,
   numberOfCards,
-  style,
 }) => (
-  <View style={style}>
+  <CardView>
     <CardCoverImage source={{ uri: deckCoverImage }} />
     <TouchableHighlight
       onPress={() => {
@@ -29,13 +28,14 @@ const Card = ({
       <CardTitle>{deckTitle}</CardTitle>
     </TouchableHighlight>
     <CardBody>{`${numberOfCards} cards in this deck`}</CardBody>
-  </View>
+  </CardView>
 );
 
-const DeckCard = styled(Card)`
+const CardView = styled(View)`
   width: 80%;
-  height: 340;
+  height: 325;
   border-radius: 8px;
+  margin: 5px 0px 15px 0px;
   background-color: ${white};
   box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
 `;
@@ -48,20 +48,19 @@ const CardCoverImage = styled(Image)`
 `;
 
 const CardTitle = styled(Title1)`
-  margin: 20px 0px 0px 20px;
+  margin: 20px 0px 5px 20px;
 `;
 
 const CardBody = styled(Body)`
   margin: 5px 0px 0px 20px;
 `;
 
-Card.propTypes = {
+DeckCard.propTypes = {
   deckCoverImage: PropTypes.string.isRequired,
   deckTitle: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired,
   numberOfCards: PropTypes.number.isRequired,
-  style: PropTypes.array.isRequired,
 };
 
 export default DeckCard;

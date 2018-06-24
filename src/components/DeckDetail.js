@@ -17,6 +17,7 @@ const DeckDetail = ({ navigation }) => {
       <DetailCoverImage source={{ uri: deckCoverImage }} />
       <DetailTitle>{deckTitle}</DetailTitle>
       <DetailBody>{`${numberOfCards} cards in this deck`}</DetailBody>
+
       <DetailButton
         onPress={() => {
           navigation.navigate('AddQuestion', { id });
@@ -24,7 +25,13 @@ const DeckDetail = ({ navigation }) => {
       >
         <ButtonBody>Add Question</ButtonBody>
       </DetailButton>
-      <DetailButton primary>
+
+      <DetailButton
+        primary
+        onPress={() => {
+          navigation.navigate('Question', { id });
+        }}
+      >
         <ButtonBody primary>Start Quiz</ButtonBody>
       </DetailButton>
     </DetailView>

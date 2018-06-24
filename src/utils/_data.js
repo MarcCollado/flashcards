@@ -5,12 +5,15 @@ export const DUMMY_DATA_KEY = 'flashcards:dummy-data';
 // to be deleted once real data is imported
 const dummyData = {
   aviation: {
+    id: 'R4s6hfk3m2',
     title: 'Aviation history',
-    coverImageUrl: 'https://images.unsplash.com/photo-1464490997959-0c65eee1cc26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a94e63e6f9e5de6163c5343adfe75689&auto=format&fit=crop&w=1350&q=80',
-    questions: [
+    coverImageUrl:
+      'https://images.unsplash.com/photo-1464490997959-0c65eee1cc26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a94e63e6f9e5de6163c5343adfe75689&auto=format&fit=crop&w=1350&q=80',
+    quiz: [
       {
         question: 'Which was Concorde\'s maximum speed?',
-        answer: 'The Concorde had a maximum speed over twice the speed of sound at Mach 2.04.',
+        answer:
+          'The Concorde had a maximum speed over twice the speed of sound at Mach 2.04.',
       },
       {
         question: 'Who was F-22 Raptor\' manufacturer?',
@@ -23,16 +26,21 @@ const dummyData = {
     ],
   },
   code: {
+    id: 'D3f5gw30cR',
     title: 'Learn to code',
-    coverImageUrl: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e5a31d03ddee66863a599421f792e07b&auto=format&fit=crop&w=1350&q=80',
-    questions: [
+    coverImageUrl:
+      'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e5a31d03ddee66863a599421f792e07b&auto=format&fit=crop&w=1350&q=80',
+    quiz: [
       {
         question: 'What is a closure?',
-        answer: 'The combination of a function and the lexical environment within which that function was declared.',
+        answer:
+          'The combination of a function and the lexical environment within which that function was declared.',
       },
       {
-        question: 'What is the difference between methods and functions in OOP?',
-        answer: 'A function is a piece of code that is called by name, but a method is a piece of code that is called by a name that is associated with an object.',
+        question:
+          'What is the difference between methods and functions in OOP?',
+        answer:
+          'A function is a piece of code that is called by name, but a method is a piece of code that is called by a name that is associated with an object.',
       },
     ],
   },
@@ -48,8 +56,6 @@ function setDummyData() {
 }
 
 export function fetchLocalStorage(results) {
-  return results === null
-    ? setDummyData()
-    : JSON.parse(results);
+  return results === null ? setDummyData() : JSON.parse(results);
 }
 // to be renamed once real data is imported

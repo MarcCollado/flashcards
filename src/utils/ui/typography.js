@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { black } from './colors';
 
-const LargeTitle = styled.Text`
+const Headline = styled(Text)`
   font-weight: normal;
   font-family: System;
   font-size: 34px;
@@ -11,7 +11,7 @@ const LargeTitle = styled.Text`
   color: ${black};
 `;
 
-const Title1 = styled.Text`
+const Title1 = styled(Text)`
   font-weight: normal;
   font-family: System;
   font-size: 28px;
@@ -19,7 +19,7 @@ const Title1 = styled.Text`
   color: ${black};
 `;
 
-const Title2 = styled.Text`
+const Title2 = styled(Text)`
   font-weight: normal;
   font-family: System;
   font-size: 22px;
@@ -27,23 +27,7 @@ const Title2 = styled.Text`
   color: ${black};
 `;
 
-const Title3 = styled.Text`
-  font-weight: normal;
-  font-family: System;
-  font-size: 20px;
-  line-height: 25px;
-  color: ${black};
-`;
-
-const Headline = styled.Text`
-  font-weight: normal;
-  font-family: System;
-  font-size: 34px;
-  line-height: 41px;
-  color: ${black};
-`;
-
-const Body = styled.Text`
+const Body = styled(Text)`
   font-weight: normal;
   font-family: System;
   font-size: 17px;
@@ -51,11 +35,4 @@ const Body = styled.Text`
   color: ${black};
 `;
 
-export {
-  LargeTitle,
-  Title1,
-  Title2,
-  Title3,
-  Headline,
-  Body,
-};
+export { Headline, Title1, Title2, Body };

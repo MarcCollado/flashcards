@@ -11,7 +11,7 @@ import AddQuestion from './src/components/AddQuestion';
 import DeckDetail from './src/components/DeckDetail';
 import DeckCard from './src/components/DeckCard';
 import Quiz from './src/components/Quiz';
-import { getDecks } from './src/utils/api';
+import { getDecks, getDecksv2 } from './src/utils/api';
 import { blue, white } from './src/utils/ui/colors';
 
 const styles = StyleSheet.create({
@@ -53,6 +53,17 @@ class Home extends React.Component {
     const { navigation } = this.props;
     const { decks } = this.state;
     const deckIDs = Object.keys(decks);
+
+    // return decks.map((deck) => (
+    //   <DeckCard
+    //     deckCoverImage={deck.coverImageUrl}
+    //     deckTitle={deck.title}
+    //     id={deck.id}
+    //     key={deck.id}
+    //     navigation={navigation}
+    //     quiz={deck.quiz}
+    //   />
+    // ));
 
     return deckIDs.map((id) => (
       <DeckCard

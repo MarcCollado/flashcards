@@ -11,12 +11,12 @@ const dummyData = {
       'https://images.unsplash.com/photo-1464490997959-0c65eee1cc26?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a94e63e6f9e5de6163c5343adfe75689&auto=format&fit=crop&w=1350&q=80',
     quiz: [
       {
-        question: 'Which was Concorde\'s maximum speed?',
+        question: "Which was Concorde's maximum speed?",
         answer:
           'The Concorde had a maximum speed over twice the speed of sound at Mach 2.04.',
       },
       {
-        question: 'Who was F-22 Raptor\' manufacturer?',
+        question: "Who was F-22 Raptor' manufacturer?",
         answer: 'The F-22 Raptor was manufactured by Lockheed Martin.',
       },
       {

@@ -11,7 +11,7 @@ import AddQuestion from './src/components/AddQuestion';
 import DeckDetail from './src/components/DeckDetail';
 import DeckCard from './src/components/DeckCard';
 import Quiz from './src/components/Quiz';
-import { getDecks, getDecksv2 } from './src/utils/api';
+import { getDecks, saveToLocalStorage } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
 
 const styles = StyleSheet.create({
@@ -42,37 +42,28 @@ class Home extends React.Component {
 
   componentDidMount() {
     getDecks().then((decks) => {
-      this.setState(() => ({
-        decks,
-        ready: true,
-      }));
+      this.setState(
+        {
+          decks,
+          ready: true,
+        },
+        () => saveToLocalStorage(this.state.decks).then(() => {}),
+      );
     });
   }
 
   renderDeckCards = () => {
     const { navigation } = this.props;
     const { decks } = this.state;
-    const deckIDs = Object.keys(decks);
 
-    // return decks.map((deck) => (
-    //   <DeckCard
-    //     deckCoverImage={deck.coverImageUrl}
-    //     deckTitle={deck.title}
-    //     id={deck.id}
-    //     key={deck.id}
-    //     navigation={navigation}
-    //     quiz={deck.quiz}
-    //   />
-    // ));
-
-    return deckIDs.map((id) => (
+    return decks.map((deck) => (
       <DeckCard
-        deckCoverImage={decks[id].coverImageUrl}
-        deckTitle={decks[id].title}
-        id={decks[id].id}
-        key={decks[id].id}
+        deckCoverImage={deck.coverImageUrl}
+        deckTitle={deck.title}
+        id={deck.id}
+        key={deck.id}
         navigation={navigation}
-        quiz={decks[id].quiz}
+        quiz={deck.quiz}
       />
     ));
   };

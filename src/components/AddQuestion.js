@@ -3,45 +3,62 @@ import { Button, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { addQuizToDeck } from '../utils/api/api';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { black, blue, grey, white } from '../utils/ui/colors';
 
-const AddQuestion = ({ navigation }) => {
-  const id = navigation.getParam('id');
+class AddQuestion extends React.Component {
+  state = {
+    questionInput: null,
+    answerInput: null,
+  };
 
-  return (
-    <View>
-      <AddQuestionTitle>Add a new question</AddQuestionTitle>
+  onPress = () => {
+    const { questionInput, answerInput } = this.state;
+    const { navigation } = this.props;
+    const id = navigation.getParam('id');
 
-      <AddQuestionSubtitle>Question</AddQuestionSubtitle>
-      <MultilineInput
-        enablesReturnKeyAutomatically
-        autoFocus
-        maxLength={140}
-        multiline
-        numberOfLines={3}
-        placeholder="Type the question..."
-        placeholderTextColor={grey}
-      />
+    addQuizToDeck(id, questionInput, answerInput);
+  };
 
-      <AddQuestionSubtitle>Answer</AddQuestionSubtitle>
-      <MultilineInput
-        enablesReturnKeyAutomatically
-        maxLength={140}
-        multiline
-        numberOfLines={3}
-        placeholder="Type the answer..."
-        placeholderTextColor={grey}
-      />
+  render() {
+    const { navigation } = this.props;
+    return (
+      <View>
+        <AddQuestionTitle>Add a new question</AddQuestionTitle>
 
-      <SubmitButton>
-        <ButtonText>Add Question</ButtonText>
-      </SubmitButton>
+        <AddQuestionSubtitle>Question</AddQuestionSubtitle>
+        <MultilineInput
+          enablesReturnKeyAutomatically
+          autoFocus
+          maxLength={140}
+          multiline
+          numberOfLines={3}
+          placeholder="Type the question..."
+          placeholderTextColor={grey}
+          onChangeText={(input) => this.setState({ questionInput: input })}
+        />
 
-      <Button title="Cancel" onPress={() => navigation.goBack()} />
-    </View>
-  );
-};
+        <AddQuestionSubtitle>Answer</AddQuestionSubtitle>
+        <MultilineInput
+          enablesReturnKeyAutomatically
+          maxLength={140}
+          multiline
+          numberOfLines={3}
+          placeholder="Type the answer..."
+          placeholderTextColor={grey}
+          onChangeText={(input) => this.setState({ answerInput: input })}
+        />
+
+        <SubmitButton onPress={this.onPress}>
+          <ButtonText>Add Question</ButtonText>
+        </SubmitButton>
+
+        <Button title="Cancel" onPress={() => navigation.goBack()} />
+      </View>
+    );
+  }
+}
 
 const AddQuestionTitle = styled(Title1)`
   margin: 60px 0px 20px 25px;

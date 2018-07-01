@@ -31,3 +31,21 @@ export const ADD_DECKS_QUERY = (title, coverImageUrl) => {
     }\
   "}`;
 };
+
+export const ADD_QUIZ_QUERY = (deckID, question, answer) => {
+  const DECK_ID = deckID;
+  const QUESTION = question;
+  const ANSWER = answer;
+
+  return `{"query":"mutation {\
+  addQuizToDeck(deckID: \\"${DECK_ID}\\", quiz: {\
+      question: \\"${QUESTION}\\",\
+      answer: \\"${ANSWER}\\",\
+      }) {\
+          id\
+          question\
+          answer\
+        }\
+      }\
+    "}`;
+};

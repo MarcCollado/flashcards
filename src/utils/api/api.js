@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { GET_DECKS_QUERY, ADD_DECKS_QUERY } from './queries';
+import { GET_DECKS_QUERY, ADD_DECKS_QUERY, ADD_QUIZ_QUERY } from './queries';
 import { DEV_URL, STORAGE_KEY } from './vars';
 
 async function fetchAPI(query) {
@@ -12,21 +12,29 @@ async function fetchAPI(query) {
   return data;
 }
 
-export function saveToLocalStorage(data) {
-  return AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+export function saveToDeviceStorage(decks) {
+  return AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks))
+    .then(() => true)
+    .catch((err) => console.log('Error saving data to device => ', err));
+}
+
+export function syncData() {
+  return fetchAPI(GET_DECKS_QUERY)
+    .then((resAPI) => saveToDeviceStorage(resAPI.data.decks))
+    .catch((err) => console.log('Error fetching data from the API => ', err));
 }
 
 // returns all decks from the database
 export function getDecks() {
-  return AsyncStorage.getItem(STORAGE_KEY).then((localData) => {
-    if (localData) {
-      console.log('api.js LOG => DATA COMES FROM THE LOCAL STORAGE');
-      return JSON.parse(localData);
+  return AsyncStorage.getItem(STORAGE_KEY).then((decks) => {
+    if (decks) {
+      // console.log('api/getDecks => GET DECKS FROM DEVICE');
+      return JSON.parse(decks);
     }
-    console.log('api.js LOG => DATA COMES FROM THE API');
+    // console.log('api/getDecks => GET DECKS FROM API');
     return fetchAPI(GET_DECKS_QUERY)
       .then((resAPI) => resAPI.data.decks)
-      .catch((err) => console.log('Error fetching data from the API => ', err));
+      .catch((err) => console.log('Error fetching data from API => ', err));
   });
 }
 
@@ -36,21 +44,15 @@ export function getDeck(id) {}
 // takes in a single title and creates a corresponding deck to the database
 export function addDeck(title, coverImageUrl) {
   return fetchAPI(ADD_DECKS_QUERY(title, coverImageUrl))
-    .then((resAPI) => resAPI.data.addDeck)
+    .then((resAPI) => syncData())
     .catch((err) => console.log('Error fetching data from the API => ', err));
-}
-
-export function clearLocalStorage() {
-  return AsyncStorage.removeItem(STORAGE_KEY).then(() => {
-    console.log('api.js LOG => REMOVED');
-    return fetchAPI(GET_DECKS_QUERY)
-      .then((resAPI) => resAPI.data.decks)
-      .catch((err) => console.log('Error fetching data from the API => ', err));
-  });
 }
 
 // takes in two arguments, id and question, and adds the question to the deck
 // associated with that id
-export function addQuestionToDeck(id, question) {}
-
-// to be deleted once real data is imported
+export function addQuizToDeck(id, question, answer) {
+  console.log('GGG');
+  return fetchAPI(ADD_QUIZ_QUERY(id, question, answer)).then((resAPI) =>
+    console.log('IT WORKED'),
+  );
+}

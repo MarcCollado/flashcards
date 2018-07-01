@@ -3,11 +3,7 @@ import { Button, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import {
-  addDeck,
-  clearLocalStorage,
-  saveToLocalStorage,
-} from '../utils/api/api';
+import { addDeck } from '../utils/api/api';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { black, blue, grey, white } from '../utils/ui/colors';
 import { unsplash } from '../utils/api/vars';
@@ -16,10 +12,6 @@ class AddDeck extends React.Component {
   state = {
     input: null,
   };
-  // unmount
-  // this.setState({
-  //   input,
-  // });
 
   onPress = () => {
     const deckTitle = this.state.input;
@@ -28,12 +20,12 @@ class AddDeck extends React.Component {
     unsplash.photos
       .getRandomPhoto()
       .then((res) => res.json())
-      .then((res) => addDeck(deckTitle, res.urls.small))
-      .then(() =>
-        clearLocalStorage().then((data) =>
-          saveToLocalStorage(data).then(() => navigation.navigate('Home', {})),
+      .then((res) =>
+        addDeck(deckTitle, res.urls.small).then(() =>
+          navigation.navigate('Home', {}),
         ),
-      );
+      )
+      .catch((err) => console.log('Error while adding the deck => ', err));
   };
 
   render() {

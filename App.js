@@ -11,7 +11,7 @@ import AddQuestion from './src/components/AddQuestion';
 import DeckDetail from './src/components/DeckDetail';
 import DeckCard from './src/components/DeckCard';
 import Quiz from './src/components/Quiz';
-import { getDecks, saveToLocalStorage } from './src/utils/api/api';
+import { getDecks, saveToDeviceStorage } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
 
 const styles = StyleSheet.create({
@@ -36,8 +36,8 @@ class Home extends React.Component {
   };
 
   state = {
-    ready: false,
     decks: null,
+    ready: false,
   };
 
   componentDidMount() {
@@ -47,10 +47,7 @@ class Home extends React.Component {
           decks,
           ready: true,
         },
-        () =>
-          saveToLocalStorage(this.state.decks).then(() => {
-            console.log('App.js LOG => DATA SAVED TO LOCAL STORAGE');
-          }),
+        () => saveToDeviceStorage(this.state.decks).then(() => {}),
       );
     });
   }

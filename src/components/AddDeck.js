@@ -3,30 +3,65 @@ import { Button, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import {
+  addDeck,
+  clearLocalStorage,
+  saveToLocalStorage,
+} from '../utils/api/api';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { black, blue, grey, white } from '../utils/ui/colors';
+import { unsplash } from '../utils/api/vars';
 
-const AddDeck = ({ navigation }) => (
-  <View>
-    <AddDeckTitle>Create a new deck</AddDeckTitle>
+class AddDeck extends React.Component {
+  state = {
+    input: null,
+  };
+  // unmount
+  // this.setState({
+  //   input,
+  // });
 
-    <AddDeckSubtitle>Deck Title</AddDeckSubtitle>
+  onPress = () => {
+    const deckTitle = this.state.input;
+    const { navigation } = this.props;
 
-    <Input
-      enablesReturnKeyAutomatically
-      autoFocus
-      maxLength={70}
-      placeholder="Type the deck title..."
-      placeholderTextColor={grey}
-    />
+    unsplash.photos
+      .getRandomPhoto()
+      .then((res) => res.json())
+      .then((res) => addDeck(deckTitle, res.urls.small))
+      .then(() =>
+        clearLocalStorage().then((data) =>
+          saveToLocalStorage(data).then(() => navigation.navigate('Home', {})),
+        ),
+      );
+  };
 
-    <SubmitButton>
-      <ButtonText>Create Deck</ButtonText>
-    </SubmitButton>
+  render() {
+    const { navigation } = this.props;
+    return (
+      <View>
+        <AddDeckTitle>Create a new deck</AddDeckTitle>
 
-    <Button title="Cancel" onPress={() => navigation.goBack()} />
-  </View>
-);
+        <AddDeckSubtitle>Deck Title</AddDeckSubtitle>
+
+        <Input
+          enablesReturnKeyAutomatically
+          autoFocus
+          maxLength={70}
+          placeholder="Type the deck title..."
+          placeholderTextColor={grey}
+          onChangeText={(input) => this.setState({ input })}
+        />
+
+        <SubmitButton onPress={this.onPress}>
+          <ButtonText>Create Deck</ButtonText>
+        </SubmitButton>
+
+        <Button title="Cancel" onPress={() => navigation.goBack()} />
+      </View>
+    );
+  }
+}
 
 const AddDeckTitle = styled(Title1)`
   margin: 80px 0px 20px 25px;

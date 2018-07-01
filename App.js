@@ -47,7 +47,10 @@ class Home extends React.Component {
           decks,
           ready: true,
         },
-        () => saveToLocalStorage(this.state.decks).then(() => {}),
+        () =>
+          saveToLocalStorage(this.state.decks).then(() => {
+            console.log('App.js LOG => DATA SAVED TO LOCAL STORAGE');
+          }),
       );
     });
   }

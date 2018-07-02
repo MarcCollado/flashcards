@@ -6,9 +6,7 @@ import styled from 'styled-components';
 import { white } from '../utils/ui/colors';
 import { Title1, Body } from '../utils/ui/typography';
 
-const DeckCard = ({
-  deckCoverImage, deckTitle, id, navigation, quiz,
-}) => {
+const DeckCard = ({ id, deckCoverImage, deckTitle, quiz, navigation }) => {
   const numberOfCards = quiz.length;
   return (
     <CardView>

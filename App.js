@@ -8,9 +8,11 @@ import { Feather } from '@expo/vector-icons';
 
 import AddDeck from './src/components/AddDeck';
 import AddQuestion from './src/components/AddQuestion';
-import DeckDetail from './src/components/DeckDetail';
+import Answer from './src/components/Answer';
 import DeckCard from './src/components/DeckCard';
-import Quiz from './src/components/Quiz';
+import DeckDetail from './src/components/DeckDetail';
+import Question from './src/components/Question';
+
 import { getDecks } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
 
@@ -26,15 +28,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const AddDeckButton = styled(TouchableOpacity)`
-  margin-left: 15px;
-`;
-
 class Home extends React.Component {
-  static propTypes = {
-    navigation: PropTypes.object.isRequired,
-  };
-
   state = {
     decks: null,
     ready: false,
@@ -49,27 +43,26 @@ class Home extends React.Component {
     });
   }
 
-  sync = (delta) => {
-    this.setState((prevState) => {
-      console.log(prevState);
-      console.log('delta', delta);
-    });
-
-    // return ({
-    //   userLibrary: prevState.userLibrary.concat(book),
-    // });
-  };
+  // sync = (delta) => {
+  //   this.setState((prevState) => {
+  //     console.log(prevState);
+  //     console.log('delta', delta);
+  //     return ({
+  //       userLibrary: prevState.userLibrary.concat(book),
+  //     });
+  //   });
+  // };
 
   renderDeckCards = () => {
     const { navigation } = this.props;
     const { decks } = this.state;
-    // console.log(navigation.state.params);
+
     return decks.map((deck) => (
       <DeckCard
+        key={deck.id}
+        id={deck.id}
         deckCoverImage={deck.coverImageUrl}
         deckTitle={deck.title}
-        id={deck.id}
-        key={deck.id}
         navigation={navigation}
         quiz={deck.quiz}
       />
@@ -121,8 +114,8 @@ const StackNavigator = createStackNavigator(
         title: navigation.getParam('deckTitle'),
       }),
     },
-    Quiz: {
-      screen: Quiz,
+    Question: {
+      screen: Question,
     },
   },
   // StackNavigatorConfig
@@ -142,12 +135,23 @@ const RootStack = createStackNavigator(
     AddQuestion: {
       screen: AddQuestion,
     },
+    Answer: {
+      screen: Answer,
+    },
   },
   {
     mode: 'modal',
     headerMode: 'none',
   },
 );
+
+const AddDeckButton = styled(TouchableOpacity)`
+  margin-left: 15px;
+`;
+
+Home.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 const App = () => <RootStack />;
 

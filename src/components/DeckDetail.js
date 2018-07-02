@@ -3,8 +3,8 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Title1, Body } from '../utils/ui/typography';
 import { blue, white } from '../utils/ui/colors';
+import { Title1, Body } from '../utils/ui/typography';
 
 const DeckDetail = ({ navigation }) => {
   const id = navigation.getParam('id');
@@ -31,7 +31,12 @@ const DeckDetail = ({ navigation }) => {
       <DetailButton
         primary
         onPress={() => {
-          navigation.navigate('Quiz', { id });
+          navigation.navigate('Question', {
+            id,
+            deckCoverImage,
+            deckTitle,
+            quiz,
+          });
         }}
       >
         <ButtonBody primary>Start Quiz</ButtonBody>

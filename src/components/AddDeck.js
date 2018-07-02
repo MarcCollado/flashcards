@@ -2,22 +2,24 @@ import React from 'react';
 import { Button, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { AppLoading } from 'expo';
 
-import { addDeck, syncData } from '../utils/api/api';
-import { Body, Title1, Title2 } from '../utils/ui/typography';
+import { addDeck } from '../utils/api/api';
 import { black, blue, grey, white } from '../utils/ui/colors';
+import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { unsplash } from '../utils/api/vars';
 
 class AddDeck extends React.Component {
   state = {
     input: null,
+    loading: false,
   };
 
-  componentWillUnmount() {
-    syncData();
-  }
-
   onPress = () => {
+    this.setState({
+      loading: true,
+    });
+
     const deckTitle = this.state.input;
     const { navigation } = this.props;
 
@@ -34,6 +36,12 @@ class AddDeck extends React.Component {
 
   render() {
     const { navigation } = this.props;
+    const { loading } = this.state;
+
+    if (loading === false) {
+      return <AppLoading />;
+    }
+
     return (
       <View>
         <AddDeckTitle>Create a new deck</AddDeckTitle>
@@ -53,10 +61,7 @@ class AddDeck extends React.Component {
           <ButtonText>Create Deck</ButtonText>
         </SubmitButton>
 
-        <Button
-          title="Cancel"
-          onPress={() => navigation.goBack({ sync: false })}
-        />
+        <Button title="Cancel" onPress={() => navigation.goBack()} />
       </View>
     );
   }

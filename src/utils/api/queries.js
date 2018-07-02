@@ -11,6 +11,24 @@ export const GET_DECKS_QUERY = `{"query":"query {\
 }\
 "}`;
 
+export const GET_DECK_QUERY = (deckID) => {
+  const DECK_ID = deckID.toString().trim();
+
+  return `{"query":"query {\
+      deck(id: \\"${DECK_ID}\\") {\
+        id\
+        title\
+        coverImageUrl\
+        quiz {\
+          id\
+          question\
+          answer\
+        }\
+      }\
+    }\
+  "}`;
+};
+
 export const ADD_DECKS_QUERY = (title, coverImageUrl) => {
   const TITLE = title.toString().trim();
   const URL = coverImageUrl.toString().trim();

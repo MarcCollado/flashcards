@@ -1,5 +1,10 @@
 import { AsyncStorage } from 'react-native';
-import { GET_DECKS_QUERY, ADD_DECKS_QUERY, ADD_QUIZ_QUERY } from './queries';
+import {
+  GET_DECKS_QUERY,
+  GET_DECK_QUERY,
+  ADD_DECKS_QUERY,
+  ADD_QUIZ_QUERY,
+} from './queries';
 import { DEV_URL, STORAGE_KEY } from './vars';
 
 async function fetchAPI(query) {
@@ -39,7 +44,11 @@ export function getDecks() {
 }
 
 // takes in a single id argument and returns the deck associated with that id
-export function getDeck(id) {}
+export function getDeck(id) {
+  return fetchAPI(GET_DECK_QUERY(id))
+    .then((resAPI) => console.log(resAPI.data.deck))
+    .catch((err) => console.log('Error fetching data from API => ', err));
+}
 
 // takes in a single title and creates a corresponding deck to the database
 export function addDeck(title, coverImageUrl) {

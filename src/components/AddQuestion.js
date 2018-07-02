@@ -3,7 +3,7 @@ import { Button, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { addQuizToDeck } from '../utils/api/api';
+import { addQuizToDeck, syncData } from '../utils/api/api';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { black, blue, grey, white } from '../utils/ui/colors';
 
@@ -13,12 +13,18 @@ class AddQuestion extends React.Component {
     answerInput: null,
   };
 
+  componentWillUnmount() {
+    syncData();
+  }
+
   onPress = () => {
     const { questionInput, answerInput } = this.state;
     const { navigation } = this.props;
     const id = navigation.getParam('id');
 
-    addQuizToDeck(id, questionInput, answerInput);
+    addQuizToDeck(id, questionInput, answerInput).then(() =>
+      navigation.navigate('Home', {}),
+    );
   };
 
   render() {

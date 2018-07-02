@@ -2,38 +2,48 @@ import React from 'react';
 import { Button, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { AppLoading } from 'expo';
 
-import { addQuizToDeck, syncData } from '../utils/api/api';
+import { addCardToDeck } from '../utils/api/api';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { black, blue, grey, white } from '../utils/ui/colors';
 
-class AddQuestion extends React.Component {
+class AddCard extends React.Component {
   state = {
     questionInput: null,
     answerInput: null,
+    loading: false,
   };
-
-  componentWillUnmount() {
-    syncData();
-  }
 
   onPress = () => {
     const { questionInput, answerInput } = this.state;
     const { navigation } = this.props;
     const id = navigation.getParam('id');
 
-    addQuizToDeck(id, questionInput, answerInput).then(() =>
-      navigation.navigate('Home', {}),
-    );
+    this.setState({
+      loading: true,
+    });
+
+    addCardToDeck(id, questionInput, answerInput)
+      .then(() => navigation.navigate('Home', {}))
+      .catch((err) =>
+        console.log('Error while adding the card to deck => ', err),
+      );
   };
 
   render() {
     const { navigation } = this.props;
+    const { loading } = this.state;
+
+    if (loading === true) {
+      return <AppLoading />;
+    }
+
     return (
       <View>
-        <AddQuestionTitle>Add a new question</AddQuestionTitle>
+        <AddCardTitle>Add a new card</AddCardTitle>
 
-        <AddQuestionSubtitle>Question</AddQuestionSubtitle>
+        <AddCardSubtitle>Question</AddCardSubtitle>
         <MultilineInput
           enablesReturnKeyAutomatically
           autoFocus
@@ -45,7 +55,7 @@ class AddQuestion extends React.Component {
           onChangeText={(input) => this.setState({ questionInput: input })}
         />
 
-        <AddQuestionSubtitle>Answer</AddQuestionSubtitle>
+        <AddCardSubtitle>Answer</AddCardSubtitle>
         <MultilineInput
           enablesReturnKeyAutomatically
           maxLength={140}
@@ -57,7 +67,7 @@ class AddQuestion extends React.Component {
         />
 
         <SubmitButton onPress={this.onPress}>
-          <ButtonText>Add Question</ButtonText>
+          <ButtonText>Add Card</ButtonText>
         </SubmitButton>
 
         <Button title="Cancel" onPress={() => navigation.goBack()} />
@@ -66,11 +76,11 @@ class AddQuestion extends React.Component {
   }
 }
 
-const AddQuestionTitle = styled(Title1)`
+const AddCardTitle = styled(Title1)`
   margin: 60px 0px 20px 25px;
 `;
 
-const AddQuestionSubtitle = styled(Title2)`
+const AddCardSubtitle = styled(Title2)`
   margin: 15px 0px 0px 20px;
 `;
 
@@ -96,8 +106,8 @@ const ButtonText = styled(Body)`
   color: ${white};
 `;
 
-AddQuestion.propTypes = {
+AddCard.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default AddQuestion;
+export default AddCard;

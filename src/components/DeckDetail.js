@@ -10,9 +10,9 @@ const DeckDetail = ({ navigation }) => {
   const id = navigation.getParam('id');
   const deckCoverImage = navigation.getParam('deckCoverImage');
   const deckTitle = navigation.getParam('deckTitle');
-  const quiz = navigation.getParam('quiz');
+  const card = navigation.getParam('card');
 
-  const numberOfCards = quiz.length;
+  const numberOfCards = card.length;
 
   return (
     <DetailView>
@@ -22,10 +22,10 @@ const DeckDetail = ({ navigation }) => {
 
       <DetailButton
         onPress={() => {
-          navigation.navigate('AddQuestion', { id });
+          navigation.navigate('AddCard', { id });
         }}
       >
-        <ButtonBody>Add Question</ButtonBody>
+        <ButtonBody>Add Card</ButtonBody>
       </DetailButton>
 
       <DetailButton
@@ -35,7 +35,7 @@ const DeckDetail = ({ navigation }) => {
             id,
             deckCoverImage,
             deckTitle,
-            quiz,
+            card,
           });
         }}
       >

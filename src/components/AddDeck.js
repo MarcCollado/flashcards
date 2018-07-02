@@ -16,19 +16,19 @@ class AddDeck extends React.Component {
   };
 
   onPress = () => {
+    const deckTitle = this.state.input;
+    const { navigation } = this.props;
+
     this.setState({
       loading: true,
     });
-
-    const deckTitle = this.state.input;
-    const { navigation } = this.props;
 
     unsplash.photos
       .getRandomPhoto()
       .then((img) => img.json())
       .then((img) =>
         addDeck(deckTitle, img.urls.small).then((res) =>
-          navigation.navigate('Home', { sync: true }),
+          navigation.navigate('Home'),
         ),
       )
       .catch((err) => console.log('Error while adding the deck => ', err));
@@ -38,7 +38,7 @@ class AddDeck extends React.Component {
     const { navigation } = this.props;
     const { loading } = this.state;
 
-    if (loading === false) {
+    if (loading === true) {
       return <AppLoading />;
     }
 

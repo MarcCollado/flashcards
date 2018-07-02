@@ -3,7 +3,7 @@ export const GET_DECKS_QUERY = `{"query":"query {\
     id\
     title\
     coverImageUrl\
-    quiz {\
+    card {\
       question\
       answer\
     }\
@@ -19,7 +19,7 @@ export const GET_DECK_QUERY = (deckID) => {
         id\
         title\
         coverImageUrl\
-        quiz {\
+        card {\
           id\
           question\
           answer\
@@ -29,7 +29,7 @@ export const GET_DECK_QUERY = (deckID) => {
   "}`;
 };
 
-export const ADD_DECKS_QUERY = (title, coverImageUrl) => {
+export const ADD_DECK_QUERY = (title, coverImageUrl) => {
   const TITLE = title.toString().trim();
   const URL = coverImageUrl.toString().trim();
 
@@ -41,7 +41,7 @@ export const ADD_DECKS_QUERY = (title, coverImageUrl) => {
         id\
         title\
         coverImageUrl\
-        quiz {\
+        card {\
           question\
           answer\
         }\
@@ -50,13 +50,13 @@ export const ADD_DECKS_QUERY = (title, coverImageUrl) => {
   "}`;
 };
 
-export const ADD_QUIZ_QUERY = (deckID, question, answer) => {
+export const ADD_CARD_QUERY = (deckID, question, answer) => {
   const DECK_ID = deckID.toString().trim();
   const QUESTION = question.toString().trim();
   const ANSWER = answer.toString().trim();
 
   return `{"query":"mutation {\
-  addQuizToDeck(deckID: \\"${DECK_ID}\\", quiz: {\
+  addCardToDeck(deckID: \\"${DECK_ID}\\", card: {\
       question: \\"${QUESTION}\\",\
       answer: \\"${ANSWER}\\",\
       }) {\

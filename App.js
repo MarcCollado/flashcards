@@ -7,9 +7,9 @@ import { AppLoading } from 'expo';
 import { Feather } from '@expo/vector-icons';
 
 import AddDeck from './src/components/AddDeck';
-import AddQuestion from './src/components/AddQuestion';
+import AddCard from './src/components/AddCard';
 import Answer from './src/components/Answer';
-import DeckCard from './src/components/DeckCard';
+import Deck from './src/components/Deck';
 import DeckDetail from './src/components/DeckDetail';
 import Question from './src/components/Question';
 
@@ -31,14 +31,14 @@ const styles = StyleSheet.create({
 class Home extends React.Component {
   state = {
     decks: null,
-    ready: false,
+    loading: true,
   };
 
   componentDidMount() {
     getDecks().then((decks) => {
       this.setState({
         decks,
-        ready: true,
+        loading: false,
       });
     });
   }
@@ -53,26 +53,26 @@ class Home extends React.Component {
   //   });
   // };
 
-  renderDeckCards = () => {
+  renderDecks = () => {
     const { navigation } = this.props;
     const { decks } = this.state;
 
     return decks.map((deck) => (
-      <DeckCard
+      <Deck
         key={deck.id}
         id={deck.id}
         deckCoverImage={deck.coverImageUrl}
         deckTitle={deck.title}
         navigation={navigation}
-        quiz={deck.quiz}
+        card={deck.card}
       />
     ));
   };
 
   render() {
-    const { ready } = this.state;
+    const { loading } = this.state;
 
-    if (ready === false) {
+    if (loading === true) {
       return <AppLoading />;
     }
 
@@ -81,7 +81,7 @@ class Home extends React.Component {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
       >
-        {this.renderDeckCards()}
+        {this.renderDecks()}
       </ScrollView>
     );
   }
@@ -132,8 +132,8 @@ const RootStack = createStackNavigator(
     AddDeck: {
       screen: AddDeck,
     },
-    AddQuestion: {
-      screen: AddQuestion,
+    AddCard: {
+      screen: AddCard,
     },
     Answer: {
       screen: Answer,

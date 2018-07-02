@@ -6,29 +6,29 @@ import styled from 'styled-components';
 import { white } from '../utils/ui/colors';
 import { Title1, Body } from '../utils/ui/typography';
 
-const DeckCard = ({ id, deckCoverImage, deckTitle, quiz, navigation }) => {
-  const numberOfCards = quiz.length;
+const Deck = ({ id, deckCoverImage, deckTitle, card, navigation }) => {
+  const numberOfCards = card.length;
   return (
-    <CardView>
-      <CardCoverImage source={{ uri: deckCoverImage }} />
+    <DeckView>
+      <DeckCoverImage source={{ uri: deckCoverImage }} />
       <TouchableHighlight
         onPress={() => {
           navigation.navigate('DeckDetail', {
             id,
             deckCoverImage,
             deckTitle,
-            quiz,
+            card,
           });
         }}
       >
-        <CardTitle>{deckTitle}</CardTitle>
+        <DeckTitle>{deckTitle}</DeckTitle>
       </TouchableHighlight>
-      <CardBody>{`${numberOfCards} cards in this deck`}</CardBody>
-    </CardView>
+      <DeckBody>{`${numberOfCards} cards in this deck`}</DeckBody>
+    </DeckView>
   );
 };
 
-const CardView = styled(View)`
+const DeckView = styled(View)`
   width: 80%;
   height: 325;
   border-radius: 8px;
@@ -37,27 +37,27 @@ const CardView = styled(View)`
   box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
 `;
 
-const CardCoverImage = styled(Image)`
+const DeckCoverImage = styled(Image)`
   width: 100%;
   height: 65%;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 `;
 
-const CardTitle = styled(Title1)`
+const DeckTitle = styled(Title1)`
   margin: 20px 0px 5px 20px;
 `;
 
-const CardBody = styled(Body)`
+const DeckBody = styled(Body)`
   margin: 5px 0px 0px 20px;
 `;
 
-DeckCard.propTypes = {
+Deck.propTypes = {
   id: PropTypes.string.isRequired,
   deckCoverImage: PropTypes.string.isRequired,
   deckTitle: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired,
-  quiz: PropTypes.array.isRequired,
+  card: PropTypes.array.isRequired,
 };
 
-export default DeckCard;
+export default Deck;

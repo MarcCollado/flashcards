@@ -17,10 +17,10 @@ class Question extends React.Component {
     const id = navigation.getParam('id');
     const deckCoverImage = navigation.getParam('deckCoverImage');
     const deckTitle = navigation.getParam('deckTitle');
-    const quiz = navigation.getParam('quiz');
+    const card = navigation.getParam('card');
 
-    const numberOfCards = quiz.length;
-    const { question, answer } = quiz[progress - 1];
+    const numberOfCards = card.length;
+    const { question, answer } = card[progress - 1];
 
     return (
       <QuizView>

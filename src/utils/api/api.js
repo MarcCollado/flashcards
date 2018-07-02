@@ -2,8 +2,8 @@ import { AsyncStorage } from 'react-native';
 import {
   GET_DECKS_QUERY,
   GET_DECK_QUERY,
-  ADD_DECKS_QUERY,
-  ADD_QUIZ_QUERY,
+  ADD_DECK_QUERY,
+  ADD_CARD_QUERY,
 } from './queries';
 import { DEV_URL, STORAGE_KEY } from './vars';
 
@@ -53,7 +53,7 @@ export function getDeck(id) {
 // takes in a single title and creates a corresponding deck to the database
 export function addDeck(title, coverImageUrl) {
   return (
-    fetchAPI(ADD_DECKS_QUERY(title, coverImageUrl))
+    fetchAPI(ADD_DECK_QUERY(title, coverImageUrl))
       // returns the { newDeck }
       .then((resAPI) => resAPI.data.addDeck)
       .catch((err) => console.log('Error adding the new deck => ', err))
@@ -62,8 +62,8 @@ export function addDeck(title, coverImageUrl) {
 
 // takes in two arguments, id and question, and adds the question to the deck
 // associated with that id
-export function addQuizToDeck(id, question, answer) {
-  return fetchAPI(ADD_QUIZ_QUERY(id, question, answer))
-    .then((resAPI) => resAPI.data.addQuizToDeck)
-    .catch((err) => console.log('Error adding the quiz to the deck => ', err));
+export function addCardToDeck(id, question, answer) {
+  return fetchAPI(ADD_CARD_QUERY(id, question, answer))
+    .then((resAPI) => resAPI.data.addCardToDeck)
+    .catch((err) => console.log('Error adding the card to the deck => ', err));
 }

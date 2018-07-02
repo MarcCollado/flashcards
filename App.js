@@ -11,7 +11,7 @@ import AddQuestion from './src/components/AddQuestion';
 import DeckDetail from './src/components/DeckDetail';
 import DeckCard from './src/components/DeckCard';
 import Quiz from './src/components/Quiz';
-import { getDecks, saveToDeviceStorage } from './src/utils/api/api';
+import { getDecks } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
 
 const styles = StyleSheet.create({
@@ -42,20 +42,28 @@ class Home extends React.Component {
 
   componentDidMount() {
     getDecks().then((decks) => {
-      this.setState(
-        {
-          decks,
-          ready: true,
-        },
-        () => saveToDeviceStorage(this.state.decks).then(() => {}),
-      );
+      this.setState({
+        decks,
+        ready: true,
+      });
     });
   }
+
+  sync = (delta) => {
+    this.setState((prevState) => {
+      console.log(prevState);
+      console.log('delta', delta);
+    });
+
+    // return ({
+    //   userLibrary: prevState.userLibrary.concat(book),
+    // });
+  };
 
   renderDeckCards = () => {
     const { navigation } = this.props;
     const { decks } = this.state;
-
+    // console.log(navigation.state.params);
     return decks.map((deck) => (
       <DeckCard
         deckCoverImage={deck.coverImageUrl}

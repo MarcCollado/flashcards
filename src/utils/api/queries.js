@@ -12,8 +12,8 @@ export const GET_DECKS_QUERY = `{"query":"query {\
 "}`;
 
 export const ADD_DECKS_QUERY = (title, coverImageUrl) => {
-  const TITLE = title.toString();
-  const URL = coverImageUrl.toString();
+  const TITLE = title.toString().trim();
+  const URL = coverImageUrl.toString().trim();
 
   return `{"query":"mutation {\
   addDeck(deck: {\
@@ -33,19 +33,19 @@ export const ADD_DECKS_QUERY = (title, coverImageUrl) => {
 };
 
 export const ADD_QUIZ_QUERY = (deckID, question, answer) => {
-  const DECK_ID = deckID;
-  const QUESTION = question;
-  const ANSWER = answer;
+  const DECK_ID = deckID.toString().trim();
+  const QUESTION = question.toString().trim();
+  const ANSWER = answer.toString().trim();
 
   return `{"query":"mutation {\
   addQuizToDeck(deckID: \\"${DECK_ID}\\", quiz: {\
       question: \\"${QUESTION}\\",\
       answer: \\"${ANSWER}\\",\
       }) {\
-          id\
-          question\
-          answer\
-        }\
+        id\
+        question\
+        answer\
       }\
-    "}`;
+    }\
+  "}`;
 };

@@ -12,9 +12,9 @@ async function fetchAPI(query) {
   return data;
 }
 
-export function saveToDeviceStorage(decks) {
+function saveToDeviceStorage(decks) {
   return AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks))
-    .then(() => true)
+    .then(() => {})
     .catch((err) => console.log('Error saving data to device => ', err));
 }
 
@@ -43,16 +43,18 @@ export function getDeck(id) {}
 
 // takes in a single title and creates a corresponding deck to the database
 export function addDeck(title, coverImageUrl) {
-  return fetchAPI(ADD_DECKS_QUERY(title, coverImageUrl))
-    .then((resAPI) => syncData())
-    .catch((err) => console.log('Error fetching data from the API => ', err));
+  return (
+    fetchAPI(ADD_DECKS_QUERY(title, coverImageUrl))
+      // returns the { newDeck }
+      .then((resAPI) => resAPI.data.addDeck)
+      .catch((err) => console.log('Error adding the new deck => ', err))
+  );
 }
 
 // takes in two arguments, id and question, and adds the question to the deck
 // associated with that id
 export function addQuizToDeck(id, question, answer) {
-  console.log('GGG');
-  return fetchAPI(ADD_QUIZ_QUERY(id, question, answer)).then((resAPI) =>
-    console.log('IT WORKED'),
-  );
+  return fetchAPI(ADD_QUIZ_QUERY(id, question, answer))
+    .then((resAPI) => resAPI.data.addQuizToDeck)
+    .catch((err) => console.log('Error adding the quiz to the deck => ', err));
 }

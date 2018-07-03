@@ -6,34 +6,27 @@ import styled from 'styled-components';
 import { blue, white } from '../utils/ui/colors';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 
-class Answer extends React.Component {
+class Finished extends React.Component {
   state = {};
 
   onPress = () => {};
 
   render() {
     const { navigation } = this.props;
-    const answer = navigation.getParam('answer');
-    const numberOfCards = navigation.getParam('numberOfCards');
-    const progress = navigation.getParam('progress');
+    const score = navigation.getParam('score');
 
     return (
       <View>
-        <Progress>
-          {progress === numberOfCards
-            ? `Last question`
-            : `Question ${progress} of ${numberOfCards}`}
-        </Progress>
-
-        <AnswerView>
-          <AnswerText>{answer}</AnswerText>
-        </AnswerView>
+        <Progress>{score}</Progress>
 
         <SubmitButton onPress={this.onPress}>
-          <ButtonText>Next question</ButtonText>
+          <ButtonText>Restart quiz</ButtonText>
         </SubmitButton>
 
-        <Button title="Go back" onPress={() => navigation.goBack()} />
+        <Button
+          title="🔙 to deck details"
+          onPress={() => navigation.navigate('DeckDetail')}
+        />
       </View>
     );
   }
@@ -44,18 +37,7 @@ const Progress = styled(Title1)`
   text-align: center;
 `;
 
-const AnswerView = styled(View)`
-  width: 80%;
-  height: 340;
-  border-radius: 8px;
-  margin: 30px auto 10px auto;
-  padding: 25px;
-  justify-content: center;
-  background-color: ${white};
-  box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
-`;
-
-const AnswerText = styled(Title2)`
+const FinishedText = styled(Title2)`
   margin: 20px auto 20px auto;
   text-align: center;
 `;
@@ -75,8 +57,8 @@ const ButtonText = styled(Body)`
   color: ${white};
 `;
 
-Answer.propTypes = {
+Finished.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default Answer;
+export default Finished;

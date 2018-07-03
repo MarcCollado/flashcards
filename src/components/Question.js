@@ -9,6 +9,8 @@ import { green, red, white } from '../utils/ui/colors';
 class Question extends React.Component {
   state = {
     progress: 1,
+    score: 0,
+    complete: false,
   };
 
   render() {
@@ -17,14 +19,18 @@ class Question extends React.Component {
     const id = navigation.getParam('id');
     const deckCoverImage = navigation.getParam('deckCoverImage');
     const deckTitle = navigation.getParam('deckTitle');
-    const card = navigation.getParam('card');
+    const cards = navigation.getParam('cards');
 
-    const numberOfCards = card.length;
-    const { question, answer } = card[progress - 1];
+    const numberOfCards = cards.length;
+    const { question, answer } = cards[progress - 1];
 
     return (
       <QuizView>
-        <Progress>{`Question ${progress} of ${numberOfCards}`}</Progress>
+        <Progress>
+          {progress === numberOfCards
+            ? `Last question`
+            : `Question ${progress} of ${numberOfCards}`}
+        </Progress>
 
         <QuestionView>
           <QuestionText>{question}</QuestionText>
@@ -37,22 +43,56 @@ class Question extends React.Component {
           }
         />
 
-        <DetailButton onPress={() => {}}>
-          <ButtonBody>Not sure</ButtonBody>
+        <DetailButton
+          onPress={() => {
+            if (progress < numberOfCards) {
+              this.setState((prevState) => ({
+                progress: prevState.progress + 1,
+                score: prevState.score,
+              }));
+            } else if (progress === numberOfCards) {
+              this.setState(
+                (prevState) => ({
+                  score: prevState.score,
+                  complete: true,
+                }),
+                () => {
+                  const { score, complete } = this.state;
+                  if (complete) {
+                    navigation.navigate('Finished', { score });
+                  }
+                },
+              );
+            }
+          }}
+        >
+          <ButtonBody>{`🤔 Did not know`}</ButtonBody>
         </DetailButton>
-        <DetailButton primary>
-          <ButtonBody
-            primary
-            onPress={() => {
-              this.setState((prevState) => {
-                if (progress < numberOfCards) {
-                  return { progress: prevState.progress + 1 };
-                }
-              });
-            }}
-          >
-            I know it
-          </ButtonBody>
+        <DetailButton
+          primary
+          onPress={() => {
+            if (progress < numberOfCards) {
+              this.setState((prevState) => ({
+                progress: prevState.progress + 1,
+                score: prevState.score + 1,
+              }));
+            } else if (progress === numberOfCards) {
+              this.setState(
+                (prevState) => ({
+                  score: prevState.score + 1,
+                  complete: true,
+                }),
+                () => {
+                  const { score, complete } = this.state;
+                  if (complete) {
+                    navigation.navigate('Finished', { score });
+                  }
+                },
+              );
+            }
+          }}
+        >
+          <ButtonBody primary>{`🤓 Did know`}</ButtonBody>
         </DetailButton>
       </QuizView>
     );
@@ -91,14 +131,14 @@ const DetailButton = styled(TouchableOpacity)`
   border: ${(props) => (props.primary ? '0px' : `1px solid ${red}`)};
   border-radius: 10px;
   margin: 10px auto 0px auto;
-  background: ${(props) => (props.primary ? green : white)};
+  background: ${(props) => (props.primary ? green : red)};
 `;
 
 const ButtonBody = styled(Body)`
   font-weight: bold;
   text-align: center;
   margin-top: 16px;
-  color: ${(props) => (props.primary ? white : red)};
+  color: ${(props) => (props.primary ? white : white)};
 `;
 
 Question.propTypes = {

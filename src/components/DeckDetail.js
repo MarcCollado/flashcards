@@ -11,18 +11,19 @@ const DeckDetail = ({ navigation }) => {
   const deckCoverImage = navigation.getParam('deckCoverImage');
   const deckTitle = navigation.getParam('deckTitle');
   const cards = navigation.getParam('cards');
+  const syncState = navigation.getParam('syncState');
 
   const numberOfCards = cards.length;
 
   return (
     <DetailView>
-      <DetailCoverImage source={{ uri: deckCoverImage }} />
+      <CoverImage source={{ uri: deckCoverImage }} />
       <DetailTitle>{deckTitle}</DetailTitle>
       <DetailBody>{`${numberOfCards} cards in this deck`}</DetailBody>
 
       <DetailButton
         onPress={() => {
-          navigation.navigate('AddCard', { id });
+          navigation.navigate('AddCard', { id, syncState });
         }}
       >
         <ButtonBody>Add card</ButtonBody>
@@ -50,7 +51,7 @@ const DetailView = styled(View)`
   background-color: ${white};
 `;
 
-const DetailCoverImage = styled(Image)`
+const CoverImage = styled(Image)`
   width: 100%;
   height: 280px;
 `;

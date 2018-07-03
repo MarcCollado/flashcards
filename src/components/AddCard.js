@@ -24,13 +24,14 @@ class AddCard extends React.Component {
     const { questionInput, answerInput } = this.state;
     const { navigation } = this.props;
     const id = navigation.getParam('id');
+    const syncState = navigation.getParam('syncState');
 
     this.setState({
       loading: true,
     });
 
     addCardToDeck(id, questionInput, answerInput)
-      .then(() => navigation.navigate('Home', {}))
+      .then((delta) => navigation.navigate('Home', syncState([delta], id)))
       .catch((err) =>
         console.log('Error while adding the card to deck => ', err),
       );
@@ -82,16 +83,16 @@ class AddCard extends React.Component {
 }
 
 const AddCardTitle = styled(Title1)`
-  margin: 60px 0px 20px 25px;
+  margin: 60px 0px 10px 25px;
 `;
 
 const AddCardSubtitle = styled(Title2)`
-  margin: 15px 0px 0px 20px;
+  margin: 10px 0px 0px 25px;
 `;
 
 const MultilineInput = styled(TextInput)`
-  margin: 15px 25px;
-  height: 40;
+  margin: 15px 20px;
+  height: 40px;
   border-bottom-color: ${black};
   border-bottom-width: 1px;
 `;
@@ -100,7 +101,7 @@ const SubmitButton = styled(TouchableOpacity)`
   width: 80%;
   height: 55px;
   border-radius: 10px;
-  margin: 20px auto 10px auto;
+  margin: 15px auto 10px auto;
   background: ${blue};
 `;
 

@@ -54,6 +54,20 @@ class Home extends React.Component {
   //   });
   // };
 
+  syncState = (delta, id) => {
+    return this.setState((prevState) => {
+      prevState.decks.map((deck) => {
+        if (deck.id === id) {
+          return {
+            ...deck,
+            cards: deck.card.concat(delta),
+          };
+        }
+        return deck;
+      });
+    });
+  };
+
   renderDecks = () => {
     const { navigation } = this.props;
     const { decks } = this.state;
@@ -66,6 +80,7 @@ class Home extends React.Component {
         deckTitle={deck.title}
         navigation={navigation}
         cards={deck.card}
+        syncState={this.syncState}
       />
     ));
   };

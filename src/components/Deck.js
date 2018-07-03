@@ -1,28 +1,36 @@
 import React from 'react';
-import { Image, TouchableHighlight, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { white } from '../utils/ui/colors';
 import { Title1, Body } from '../utils/ui/typography';
 
-const Deck = ({ id, deckCoverImage, deckTitle, cards, navigation }) => {
+const Deck = ({
+  id,
+  deckCoverImage,
+  deckTitle,
+  cards,
+  navigation,
+  syncState,
+}) => {
   const numberOfCards = cards.length;
   return (
-    <DeckView>
+    <DeckView Large={deckTitle.length > 20}>
       <DeckCoverImage source={{ uri: deckCoverImage }} />
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={() => {
           navigation.navigate('DeckDetail', {
             id,
             deckCoverImage,
             deckTitle,
             cards,
+            syncState,
           });
         }}
       >
-        <DeckTitle>{deckTitle}</DeckTitle>
-      </TouchableHighlight>
+        <DeckTitle Large={deckTitle.length > 20}>{deckTitle}</DeckTitle>
+      </TouchableOpacity>
       <DeckBody>{`${numberOfCards} cards in this deck`}</DeckBody>
     </DeckView>
   );
@@ -30,7 +38,7 @@ const Deck = ({ id, deckCoverImage, deckTitle, cards, navigation }) => {
 
 const DeckView = styled(View)`
   width: 80%;
-  height: 325;
+  height: ${(props) => (props.Large ? '365px' : `325px`)};
   border-radius: 8px;
   margin: 5px 0px 15px 0px;
   background-color: ${white};
@@ -39,12 +47,13 @@ const DeckView = styled(View)`
 
 const DeckCoverImage = styled(Image)`
   width: 100%;
-  height: 65%;
+  height: 210px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 `;
 
 const DeckTitle = styled(Title1)`
+  font-size: ${(props) => (props.Large ? '26px' : `28px`)};
   margin: 20px 0px 5px 20px;
 `;
 
@@ -58,6 +67,7 @@ Deck.propTypes = {
   deckTitle: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired,
   cards: PropTypes.array.isRequired,
+  syncState: PropTypes.func.isRequired,
 };
 
 export default Deck;

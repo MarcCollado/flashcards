@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, TouchableOpacity, View } from 'react-native';
+import { StatusBar, Image, Button, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { blue, white } from '../utils/ui/colors';
+import { blue, white, red } from '../utils/ui/colors';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 
 class Finished extends React.Component {
@@ -13,11 +13,22 @@ class Finished extends React.Component {
 
   render() {
     const { navigation } = this.props;
+    const deckCoverImage = navigation.getParam('deckCoverImage');
+    const deckTitle = navigation.getParam('deckTitle');
     const score = navigation.getParam('score');
+    const numberOfCards = navigation.getParam('numberOfCards');
 
     return (
       <View>
-        <Progress>{score}</Progress>
+        <StatusBar hidden />
+        <CoverImage source={{ uri: deckCoverImage }} />
+
+        <FinishedTitle>{`Quiz completed 🎉`}</FinishedTitle>
+        <FinishedSubtitle>Check out your score</FinishedSubtitle>
+
+        <ScoreReport>
+          {`You knew ${score} questions out of ${numberOfCards} in ${deckTitle}`}
+        </ScoreReport>
 
         <SubmitButton onPress={this.onPress}>
           <ButtonText>Restart quiz</ButtonText>
@@ -32,14 +43,23 @@ class Finished extends React.Component {
   }
 }
 
-const Progress = styled(Title1)`
-  margin: 60px auto 10px auto;
+const CoverImage = styled(Image)`
+  width: 100%;
+  height: 200px;
+`;
+
+const FinishedTitle = styled(Title1)`
+  margin: 20px auto 5px auto;
   text-align: center;
 `;
 
-const FinishedText = styled(Title2)`
-  margin: 20px auto 20px auto;
+const FinishedSubtitle = styled(Title2)`
+  margin: 10px auto;
   text-align: center;
+`;
+
+const ScoreReport = styled(Body)`
+  margin: 5px 0px 0px 20px;
 `;
 
 const SubmitButton = styled(TouchableOpacity)`

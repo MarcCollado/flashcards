@@ -59,7 +59,12 @@ class Question extends React.Component {
                 () => {
                   const { score, complete } = this.state;
                   if (complete) {
-                    navigation.navigate('Finished', { score });
+                    navigation.navigate('Finished', {
+                      deckCoverImage,
+                      score,
+                      deckTitle,
+                      numberOfCards,
+                    });
                   }
                 },
               );
@@ -85,7 +90,12 @@ class Question extends React.Component {
                 () => {
                   const { score, complete } = this.state;
                   if (complete) {
-                    navigation.navigate('Finished', { score });
+                    navigation.navigate('Finished', {
+                      deckCoverImage,
+                      score,
+                      deckTitle,
+                      numberOfCards,
+                    });
                   }
                 },
               );

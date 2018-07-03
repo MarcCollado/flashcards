@@ -11,6 +11,7 @@ import AddCard from './src/components/AddCard';
 import Answer from './src/components/Answer';
 import Deck from './src/components/Deck';
 import DeckDetail from './src/components/DeckDetail';
+import Finished from './src/components/Finished';
 import Question from './src/components/Question';
 
 import { getDecks } from './src/utils/api/api';
@@ -64,7 +65,7 @@ class Home extends React.Component {
         deckCoverImage={deck.coverImageUrl}
         deckTitle={deck.title}
         navigation={navigation}
-        card={deck.card}
+        cards={deck.card}
       />
     ));
   };
@@ -137,6 +138,9 @@ const RootStack = createStackNavigator(
     },
     Answer: {
       screen: Answer,
+    },
+    Finished: {
+      screen: Finished,
     },
   },
   {

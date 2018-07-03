@@ -10,9 +10,9 @@ const DeckDetail = ({ navigation }) => {
   const id = navigation.getParam('id');
   const deckCoverImage = navigation.getParam('deckCoverImage');
   const deckTitle = navigation.getParam('deckTitle');
-  const card = navigation.getParam('card');
+  const cards = navigation.getParam('cards');
 
-  const numberOfCards = card.length;
+  const numberOfCards = cards.length;
 
   return (
     <DetailView>
@@ -35,7 +35,7 @@ const DeckDetail = ({ navigation }) => {
             id,
             deckCoverImage,
             deckTitle,
-            card,
+            cards,
           });
         }}
       >

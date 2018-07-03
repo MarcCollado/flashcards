@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import { white } from '../utils/ui/colors';
 import { Title1, Body } from '../utils/ui/typography';
 
-const Deck = ({ id, deckCoverImage, deckTitle, card, navigation }) => {
-  const numberOfCards = card.length;
+const Deck = ({ id, deckCoverImage, deckTitle, cards, navigation }) => {
+  const numberOfCards = cards.length;
   return (
     <DeckView>
       <DeckCoverImage source={{ uri: deckCoverImage }} />
@@ -17,7 +17,7 @@ const Deck = ({ id, deckCoverImage, deckTitle, card, navigation }) => {
             id,
             deckCoverImage,
             deckTitle,
-            card,
+            cards,
           });
         }}
       >
@@ -57,7 +57,7 @@ Deck.propTypes = {
   deckCoverImage: PropTypes.string.isRequired,
   deckTitle: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired,
-  card: PropTypes.array.isRequired,
+  cards: PropTypes.array.isRequired,
 };
 
 export default Deck;

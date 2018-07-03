@@ -8,25 +8,29 @@ import {
 import { DEV_URL, STORAGE_KEY } from './vars';
 
 async function fetchAPI(query) {
-  const response = await fetch(DEV_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: query,
-  });
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(DEV_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: query,
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error('Error fetching data from the API => ', err);
+  }
 }
 
 function saveToDeviceStorage(decks) {
   return AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks))
     .then(() => {})
-    .catch((err) => console.log('Error saving data to device => ', err));
+    .catch((err) => console.error('Error saving data to device => ', err));
 }
 
 export function syncData() {
   return fetchAPI(GET_DECKS_QUERY)
     .then((resAPI) => saveToDeviceStorage(resAPI.data.decks))
-    .catch((err) => console.log('Error fetching data from the API => ', err));
+    .catch((err) => console.error('Error fetching data from the API => ', err));
 }
 
 // returns all decks from the database
@@ -39,31 +43,27 @@ export function getDecks() {
     // console.log('api/getDecks => GET DECKS FROM API');
     return fetchAPI(GET_DECKS_QUERY)
       .then((resAPI) => resAPI.data.decks)
-      .catch((err) => console.log('Error fetching data from API => ', err));
+      .catch((err) => console.error('Error fetching decks => ', err));
   });
 }
 
-// takes in a single id argument and returns the deck associated with that id
 export function getDeck(id) {
   return fetchAPI(GET_DECK_QUERY(id))
-    .then((resAPI) => console.log(resAPI.data.deck))
-    .catch((err) => console.log('Error fetching data from API => ', err));
+    .then((resAPI) => resAPI.data.deck)
+    .catch((err) => console.error('Error fetching deck => ', err));
 }
 
-// takes in a single title and creates a corresponding deck to the database
 export function addDeck(title, coverImageUrl) {
   return (
     fetchAPI(ADD_DECK_QUERY(title, coverImageUrl))
       // returns the { newDeck }
       .then((resAPI) => resAPI.data.addDeck)
-      .catch((err) => console.log('Error adding the new deck => ', err))
+      .catch((err) => console.error('Error adding new deck => ', err))
   );
 }
 
-// takes in two arguments, id and question, and adds the question to the deck
-// associated with that id
 export function addCardToDeck(id, question, answer) {
   return fetchAPI(ADD_CARD_QUERY(id, question, answer))
     .then((resAPI) => resAPI.data.addCardToDeck)
-    .catch((err) => console.log('Error adding the card to the deck => ', err));
+    .catch((err) => console.error('Error adding card to deck => ', err));
 }

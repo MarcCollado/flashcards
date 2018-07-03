@@ -72,7 +72,7 @@ class AddCard extends React.Component {
         />
 
         <SubmitButton onPress={this.onPress}>
-          <ButtonText>Add Card</ButtonText>
+          <ButtonText>Add card</ButtonText>
         </SubmitButton>
 
         <Button title="Cancel" onPress={() => navigation.goBack()} />

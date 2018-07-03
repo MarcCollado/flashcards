@@ -51,7 +51,7 @@ class AddDeck extends React.Component {
       <View>
         <AddDeckTitle>Create a new deck</AddDeckTitle>
 
-        <AddDeckSubtitle>Deck Title</AddDeckSubtitle>
+        <AddDeckSubtitle>Deck title</AddDeckSubtitle>
 
         <Input
           enablesReturnKeyAutomatically
@@ -63,7 +63,7 @@ class AddDeck extends React.Component {
         />
 
         <SubmitButton onPress={this.onPress}>
-          <ButtonText>Create Deck</ButtonText>
+          <ButtonText>Create deck</ButtonText>
         </SubmitButton>
 
         <Button title="Cancel" onPress={() => navigation.goBack()} />

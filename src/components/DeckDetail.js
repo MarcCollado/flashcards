@@ -25,7 +25,7 @@ const DeckDetail = ({ navigation }) => {
           navigation.navigate('AddCard', { id });
         }}
       >
-        <ButtonBody>Add Card</ButtonBody>
+        <ButtonBody>Add card</ButtonBody>
       </DetailButton>
 
       <DetailButton
@@ -39,7 +39,7 @@ const DeckDetail = ({ navigation }) => {
           });
         }}
       >
-        <ButtonBody primary>Start Quiz</ButtonBody>
+        <ButtonBody primary>Start quiz</ButtonBody>
       </DetailButton>
     </DetailView>
   );

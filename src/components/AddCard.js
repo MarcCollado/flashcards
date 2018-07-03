@@ -1,8 +1,13 @@
 import React from 'react';
-import { Button, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Button,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { AppLoading } from 'expo';
 
 import { addCardToDeck } from '../utils/api/api';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
@@ -36,7 +41,7 @@ class AddCard extends React.Component {
     const { loading } = this.state;
 
     if (loading === true) {
-      return <AppLoading />;
+      return <ActivityIndicator size="large" color={blue} />;
     }
 
     return (

@@ -1,8 +1,13 @@
 import React from 'react';
-import { Button, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Button,
+  TextInput,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { AppLoading } from 'expo';
 
 import { addDeck } from '../utils/api/api';
 import { black, blue, grey, white } from '../utils/ui/colors';
@@ -39,7 +44,7 @@ class AddDeck extends React.Component {
     const { loading } = this.state;
 
     if (loading === true) {
-      return <AppLoading />;
+      return <ActivityIndicator size="large" color={blue} />;
     }
 
     return (

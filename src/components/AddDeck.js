@@ -56,7 +56,7 @@ class AddDeck extends React.Component {
         <Input
           enablesReturnKeyAutomatically
           autoFocus
-          maxLength={70}
+          maxLength={40}
           placeholder="Type the deck title..."
           placeholderTextColor={grey}
           onChangeText={(input) => this.setState({ input })}
@@ -73,11 +73,11 @@ class AddDeck extends React.Component {
 }
 
 const AddDeckTitle = styled(Title1)`
-  margin: 80px 0px 20px 25px;
+  margin: 80px 0px 10px 25px;
 `;
 
 const AddDeckSubtitle = styled(Title2)`
-  margin: 20px 0px 0px 25px;
+  margin: 15px 0px 0px 25px;
 `;
 
 const Input = styled(TextInput)`

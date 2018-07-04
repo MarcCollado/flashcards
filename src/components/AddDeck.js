@@ -23,6 +23,7 @@ class AddDeck extends React.Component {
   onPress = () => {
     const deckTitle = this.state.input;
     const { navigation } = this.props;
+    const syncState = navigation.getParam('syncState');
 
     this.setState({
       loading: true,
@@ -32,8 +33,8 @@ class AddDeck extends React.Component {
       .getRandomPhoto()
       .then((img) => img.json())
       .then((img) =>
-        addDeck(deckTitle, img.urls.small).then((res) =>
-          navigation.navigate('Home'),
+        addDeck(deckTitle, img.urls.small).then((delta) =>
+          navigation.navigate('Home', syncState([delta])),
         ),
       )
       .catch((err) => console.log('Error while adding the deck => ', err));

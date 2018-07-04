@@ -27,7 +27,7 @@ function saveToDeviceStorage(decks) {
     .catch((err) => console.error('Error saving data to device => ', err));
 }
 
-export function syncData() {
+export function backgroundSync() {
   return fetchAPI(GET_DECKS_QUERY)
     .then((resAPI) => saveToDeviceStorage(resAPI.data.decks))
     .catch((err) => console.error('Error fetching data from the API => ', err));

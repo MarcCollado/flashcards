@@ -14,7 +14,7 @@ import DeckDetail from './src/components/DeckDetail';
 import Finished from './src/components/Finished';
 import Question from './src/components/Question';
 
-import { getDecks } from './src/utils/api/api';
+import { getDecks, backgroundSync } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
 
 const styles = StyleSheet.create({
@@ -36,36 +36,52 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
+    const { navigation } = this.props;
+
     getDecks().then((decks) => {
-      this.setState({
-        decks,
-        loading: false,
-      });
+      this.setState(
+        () => {
+          return {
+            decks,
+            loading: false,
+          };
+        },
+        () => backgroundSync(),
+      );
     });
+
+    navigation.setParams({ syncState: this.syncState });
   }
 
-  // sync = (delta) => {
-  //   this.setState((prevState) => {
-  //     console.log(prevState);
-  //     console.log('delta', delta);
-  //     return ({
-  //       userLibrary: prevState.userLibrary.concat(book),
-  //     });
-  //   });
-  // };
-
   syncState = (delta, id) => {
-    return this.setState((prevState) => {
-      prevState.decks.map((deck) => {
-        if (deck.id === id) {
+    if (id !== undefined) {
+      this.setState(
+        (prevState) => {
+          const decksWithDelta = prevState.decks.map((deck) => {
+            if (deck.id === id) {
+              return {
+                ...deck,
+                card: deck.card.concat(delta),
+              };
+            }
+            return deck;
+          });
           return {
-            ...deck,
-            cards: deck.card.concat(delta),
+            decks: decksWithDelta,
           };
-        }
-        return deck;
-      });
-    });
+        },
+        () => backgroundSync(),
+      );
+    } else {
+      this.setState(
+        (prevState) => {
+          return {
+            decks: prevState.decks.concat(delta),
+          };
+        },
+        () => backgroundSync(),
+      );
+    }
   };
 
   renderDecks = () => {
@@ -87,7 +103,6 @@ class Home extends React.Component {
 
   render() {
     const { loading } = this.state;
-
     if (loading === true) {
       return <AppLoading />;
     }
@@ -113,7 +128,8 @@ const StackNavigator = createStackNavigator(
         headerLeft: (
           <AddDeckButton
             onPress={() => {
-              navigation.navigate('AddDeck');
+              const syncState = navigation.getParam('syncState');
+              navigation.navigate('AddDeck', { syncState });
             }}
           >
             <Feather name="plus" size={25} color={blue} />

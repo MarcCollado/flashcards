@@ -60,7 +60,6 @@ export const ADD_CARD_QUERY = (deckID, question, answer) => {
       question: \\"${QUESTION}\\",\
       answer: \\"${ANSWER}\\",\
       }) {\
-        id\
         question\
         answer\
       }\

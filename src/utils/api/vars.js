@@ -12,7 +12,9 @@ export const unsplash = new Unsplash({
   callbackUrl: UNSPLASH_CALLBACK_URL,
 });
 
-// AsyncStorage key
+// AsyncStorage key for the data
 export const STORAGE_KEY = `flashcards`;
+// AsyncStorage key for notifications
+export const NOTIFICATION_KEY = `flashcards:notifications`;
 // URL endpoint for GraphQL API calls
 export const DEV_URL = `http://localhost:4000/graphql?`;

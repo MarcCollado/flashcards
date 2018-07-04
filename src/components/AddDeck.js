@@ -25,19 +25,25 @@ class AddDeck extends React.Component {
     const { navigation } = this.props;
     const syncState = navigation.getParam('syncState');
 
-    this.setState({
-      loading: true,
-    });
+    if (deckTitle !== null) {
+      this.setState({
+        loading: true,
+      });
 
-    unsplash.photos
-      .getRandomPhoto()
-      .then((img) => img.json())
-      .then((img) =>
-        addDeck(deckTitle, img.urls.small).then((delta) =>
-          navigation.navigate('Home', syncState([delta])),
-        ),
-      )
-      .catch((err) => console.log('Error while adding the deck => ', err));
+      unsplash.photos
+        .getRandomPhoto()
+        .then((img) => img.json())
+        .then((img) =>
+          addDeck(deckTitle, img.urls.small).then((delta) =>
+            navigation.navigate('Home', syncState([delta])),
+          ),
+        )
+        .catch((err) => console.log('Error while adding the deck => ', err));
+    } else {
+      alert(
+        `👮‍♂️ Deck titles can't be blank. Please ensure the title is properly set.`,
+      );
+    }
   };
 
   render() {

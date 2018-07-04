@@ -26,15 +26,21 @@ class AddCard extends React.Component {
     const id = navigation.getParam('id');
     const syncState = navigation.getParam('syncState');
 
-    this.setState({
-      loading: true,
-    });
+    if (questionInput !== null && answerInput !== null) {
+      this.setState({
+        loading: true,
+      });
 
-    addCardToDeck(id, questionInput, answerInput)
-      .then((delta) => navigation.navigate('Home', syncState([delta], id)))
-      .catch((err) =>
-        console.log('Error while adding the card to deck => ', err),
+      addCardToDeck(id, questionInput, answerInput)
+        .then((delta) => navigation.navigate('Home', syncState([delta], id)))
+        .catch((err) =>
+          console.log('Error while adding the card to deck => ', err),
+        );
+    } else {
+      alert(
+        `👮‍♂️ Neither questions nor answers can't be blank. Please ensure both are properly set.`,
       );
+    }
   };
 
   render() {

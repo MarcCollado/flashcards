@@ -3,17 +3,16 @@ import { StatusBar, Image, Button, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { blue, white, red } from '../utils/ui/colors';
+import { setDailyNotification } from '../utils/notifications/local';
+import { blue, white } from '../utils/ui/colors';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 
 class Finished extends React.Component {
   state = {};
 
-  componenentWillUnmount() {
-    console.log('finished unmounted');
+  componentWillUnmount() {
+    setDailyNotification();
   }
-
-  onPress = () => {};
 
   render() {
     const { navigation } = this.props;

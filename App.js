@@ -14,7 +14,7 @@ import DeckDetail from './src/components/DeckDetail';
 import Finished from './src/components/Finished';
 import Question from './src/components/Question';
 
-import { setDailyNotification } from './src/utils/notifications/local';
+import { askNotificationPermissions } from './src/utils/notifications/local';
 import { getDecks, backgroundSync } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
 
@@ -39,8 +39,7 @@ class Home extends React.Component {
   componentDidMount() {
     const { navigation } = this.props;
 
-    setDailyNotification();
-    // clearLocalNotification();
+    askNotificationPermissions();
 
     getDecks().then((decks) => {
       this.setState(

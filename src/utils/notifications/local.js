@@ -31,12 +31,24 @@ export function sendLocalNotification() {
     .catch((err) => console.error('Error sending local notification => ', err));
 }
 
+export function askNotificationPermissions() {
+  Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS)
+    .then(({ status }) => {
+      if (status !== 'granted') {
+        alert(
+          `🙋‍♀️ Hey! You might want to enable notifications, otherwise you're missing out on daily reminders.`,
+        );
+      }
+    })
+    .catch((err) => console.error('Error getting permissions => ', err));
+}
+
 export function setDailyNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then((data) => JSON.parse(data))
     .then((data) => {
       if (data === null) {
-        Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS)
+        Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS)
           .then(({ status }) => {
             if (status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync();
@@ -60,9 +72,7 @@ export function setDailyNotification() {
               );
             }
           })
-          .catch((err) =>
-            console.error('Error asking for notifications => ', err),
-          );
+          .catch((err) => console.error('Error getting permissions => ', err));
       }
     })
     .catch((err) =>

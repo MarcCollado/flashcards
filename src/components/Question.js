@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Body, Title1, Title2 } from '../utils/ui/typography';
-import { green, red, white } from '../utils/ui/colors';
+import { lightGrey, white, orange, green, purple } from '../utils/ui/colors';
 
 class Question extends React.Component {
   state = {
@@ -26,6 +26,9 @@ class Question extends React.Component {
 
     return (
       <QuizView>
+        <QuizMode>
+          <QuizModeBody>Quiz mode</QuizModeBody>
+        </QuizMode>
         <Progress>
           {progress === numberOfCards
             ? `Last question`
@@ -111,7 +114,19 @@ class Question extends React.Component {
 
 const QuizView = styled(View)`
   height: 100%;
-  background-color: ${white};
+  background-color: ${lightGrey};
+`;
+
+const QuizMode = styled(View)`
+  height: 22px;
+  background: ${purple};
+`;
+
+const QuizModeBody = styled(Body)`
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+  color: ${white};
 `;
 
 const Progress = styled(Title1)`
@@ -138,10 +153,9 @@ const QuestionText = styled(Title2)`
 const DetailButton = styled(TouchableOpacity)`
   width: 80%;
   height: 55px;
-  border: ${(props) => (props.primary ? '0px' : `1px solid ${red}`)};
   border-radius: 10px;
   margin: 10px auto 0px auto;
-  background: ${(props) => (props.primary ? green : red)};
+  background: ${(props) => (props.primary ? green : orange)};
 `;
 
 const ButtonBody = styled(Body)`

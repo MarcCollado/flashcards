@@ -38,6 +38,9 @@ class Home extends React.Component {
   componentDidMount() {
     const { navigation } = this.props;
 
+    // setLocalNotification();
+    // clearLocalNotification();
+
     getDecks().then((decks) => {
       this.setState(
         () => {

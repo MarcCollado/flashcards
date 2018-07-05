@@ -13,42 +13,63 @@ function createNotification() {
   };
 }
 
-function clearLocalNotification() {
+export function clearLocalNotifications() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationAsync)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
     .catch((err) =>
       console.error('Error clearing local notifications => ', err),
     );
 }
 
-function setLocalNotification() {
-  AsyncStorage.getItem(NOTIFICATION_KEY)
-    .then(JSON.parse)
-    .then((data) => {
-      if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-          if (status === 'granted') {
-            Notifications.cancelAllScheduledNotificationAsync();
-
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(18);
-            tomorrow.setMintutes(0);
-
-            Notifications.scheduleLocalNotificationAsync(createNotification(), {
-              time: tomorrow,
-              repeat: 'day',
-            });
-
-            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
-          }
-        });
+export function sendLocalNotification() {
+  return Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS)
+    .then(({ status }) => {
+      if (status === 'granted') {
+        Notifications.presentLocalNotificationAsync(createNotification());
       }
-    });
+    })
+    .catch((err) => console.error('Error sending local notification => ', err));
 }
 
-// Notifications.presentLocalNotificationAsync(localNotification)
-// Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions)
+export function setDailyNotification() {
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then((data) => JSON.parse(data))
+    .then((data) => {
+      if (data === null) {
+        Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS)
+          .then(({ status }) => {
+            if (status === 'granted') {
+              Notifications.cancelAllScheduledNotificationsAsync();
 
-// Notifications.cancelScheduledNotificationAsync(localNotificationId)
-// Notifications.cancelAllScheduledNotificationsAsync()
+              const tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(18);
+              tomorrow.setMintutes(0);
+
+              Notifications.scheduleLocalNotificationAsync(
+                createNotification(),
+                {
+                  time: tomorrow,
+                  repeat: 'day',
+                },
+              ).then((id) =>
+                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(id)),
+              );
+            } else {
+              alert(
+                `🙋‍♀️ Hey! You might want to enable notifications, otherwise you're missing out on daily reminders.`,
+              );
+            }
+          })
+          .catch((err) =>
+            console.error('Error asking for notifications => ', err),
+          );
+      }
+    })
+    .catch((err) =>
+      console.error(
+        'Error retreiving notification from local storage => ',
+        err,
+      ),
+    );
+}

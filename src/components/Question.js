@@ -13,13 +13,26 @@ class Question extends React.Component {
     complete: false,
   };
 
+  componentDidMount() {
+    const { navigation } = this.props;
+    navigation.setParams({ restartQuiz: this.restartQuiz });
+  }
+
+  restartQuiz = () => {
+    this.setState(() => ({
+      progress: 1,
+      score: 0,
+    }));
+  };
+
   render() {
     const { navigation } = this.props;
     const { progress } = this.state;
-    const id = navigation.getParam('id');
+
     const deckCoverImage = navigation.getParam('deckCoverImage');
     const deckTitle = navigation.getParam('deckTitle');
     const cards = navigation.getParam('cards');
+    const restartQuiz = navigation.getParam('restartQuiz');
 
     const numberOfCards = cards.length;
     const { question, answer } = cards[progress - 1];
@@ -46,7 +59,7 @@ class Question extends React.Component {
           }
         />
 
-        <DetailButton
+        <ActionButton
           onPress={() => {
             if (progress < numberOfCards) {
               this.setState((prevState) => ({
@@ -67,6 +80,7 @@ class Question extends React.Component {
                       score,
                       deckTitle,
                       numberOfCards,
+                      restartQuiz,
                     });
                   }
                 },
@@ -75,8 +89,8 @@ class Question extends React.Component {
           }}
         >
           <ButtonBody>{`🤔 Did not know`}</ButtonBody>
-        </DetailButton>
-        <DetailButton
+        </ActionButton>
+        <ActionButton
           primary
           onPress={() => {
             if (progress < numberOfCards) {
@@ -98,6 +112,7 @@ class Question extends React.Component {
                       score,
                       deckTitle,
                       numberOfCards,
+                      restartQuiz,
                     });
                   }
                 },
@@ -106,7 +121,7 @@ class Question extends React.Component {
           }}
         >
           <ButtonBody primary>{`🤓 Did know`}</ButtonBody>
-        </DetailButton>
+        </ActionButton>
       </QuizView>
     );
   }
@@ -150,7 +165,7 @@ const QuestionText = styled(Title2)`
   text-align: center;
 `;
 
-const DetailButton = styled(TouchableOpacity)`
+const ActionButton = styled(TouchableOpacity)`
   width: 80%;
   height: 55px;
   border-radius: 10px;

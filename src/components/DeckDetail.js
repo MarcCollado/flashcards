@@ -33,7 +33,6 @@ const DeckDetail = ({ navigation }) => {
         primary
         onPress={() => {
           navigation.navigate('Question', {
-            id,
             deckCoverImage,
             deckTitle,
             cards,

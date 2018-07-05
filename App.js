@@ -14,6 +14,7 @@ import DeckDetail from './src/components/DeckDetail';
 import Finished from './src/components/Finished';
 import Question from './src/components/Question';
 
+import { setDailyNotification } from './src/utils/notifications/local';
 import { getDecks, backgroundSync } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
 
@@ -38,7 +39,7 @@ class Home extends React.Component {
   componentDidMount() {
     const { navigation } = this.props;
 
-    // setLocalNotification();
+    setDailyNotification();
     // clearLocalNotification();
 
     getDecks().then((decks) => {
@@ -106,6 +107,7 @@ class Home extends React.Component {
 
   render() {
     const { loading } = this.state;
+
     if (loading === true) {
       return <AppLoading />;
     }
@@ -147,6 +149,9 @@ const StackNavigator = createStackNavigator(
       screen: DeckDetail,
       navigationOptions: ({ navigation }) => ({
         title: navigation.getParam('deckTitle'),
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
       }),
     },
     Question: {

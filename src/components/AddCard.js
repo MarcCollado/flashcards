@@ -33,9 +33,7 @@ class AddCard extends React.Component {
 
       addCardToDeck(id, questionInput, answerInput)
         .then((delta) => navigation.navigate('Home', syncState([delta], id)))
-        .catch((err) =>
-          console.log('Error while adding the card to deck => ', err),
-        );
+        .catch((err) => console.log('Error adding card to deck => ', err));
     } else {
       alert(
         `👮‍♂️ Neither questions nor answers can't be blank. Please ensure both are properly set.`,

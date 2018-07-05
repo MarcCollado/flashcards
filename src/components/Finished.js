@@ -9,6 +9,10 @@ import { Body, Title1, Title2 } from '../utils/ui/typography';
 class Finished extends React.Component {
   state = {};
 
+  componenentWillUnmount() {
+    console.log('finished unmounted');
+  }
+
   onPress = () => {};
 
   render() {
@@ -17,6 +21,7 @@ class Finished extends React.Component {
     const deckTitle = navigation.getParam('deckTitle');
     const score = navigation.getParam('score');
     const numberOfCards = navigation.getParam('numberOfCards');
+    const restartQuiz = navigation.getParam('restartQuiz');
 
     return (
       <View>
@@ -30,7 +35,9 @@ class Finished extends React.Component {
           {`You knew ${score} questions out of ${numberOfCards} in ${deckTitle}`}
         </ScoreReport>
 
-        <SubmitButton onPress={this.onPress}>
+        <SubmitButton
+          onPress={() => navigation.navigate('Question', restartQuiz())}
+        >
           <ButtonText>Restart quiz</ButtonText>
         </SubmitButton>
 

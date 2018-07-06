@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   Button,
   TextInput,
   TouchableOpacity,
@@ -10,7 +11,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { addDeck } from '../utils/api/api';
-import { black, blue, grey, white } from '../utils/ui/colors';
+import { black, blue, grey, red, orange, white } from '../utils/ui/colors';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { unsplash } from '../utils/api/vars';
 
@@ -40,15 +41,24 @@ class AddDeck extends React.Component {
         )
         .catch((err) => console.log('Error while adding the deck => ', err));
     } else {
-      alert(
-        `👮‍♂️ Deck titles can't be blank. Please ensure the title is properly set.`,
+      Alert.alert(
+        `👮‍♂️`,
+        `\nDeck titles can't be blank. Please type a title name for your new deck.`,
+        { text: 'OK' },
+        { cancelable: false },
       );
     }
   };
 
+  textValidator = (input, max, lowerLimit, upperLimit = 1) => {
+    const inputCount = input === null ? 0 : input.length;
+    return inputCount > lowerLimit * max && inputCount <= upperLimit * max;
+  };
+
   render() {
     const { navigation } = this.props;
-    const { loading } = this.state;
+    const { loading, input } = this.state;
+    const maxLength = 40;
 
     if (loading === true) {
       return <ActivityIndicator size="large" color={blue} />;
@@ -63,12 +73,19 @@ class AddDeck extends React.Component {
         <Input
           enablesReturnKeyAutomatically
           autoFocus
-          maxLength={40}
+          maxLength={maxLength}
           placeholder="Type the deck title..."
           placeholderTextColor={grey}
-          onChangeText={(input) => this.setState({ input })}
+          onChangeText={(text) => this.setState({ input: text })}
+          warn={this.textValidator(input, maxLength, 0.7, 0.9)}
+          reachedLimit={this.textValidator(input, maxLength, 0.9)}
         />
-
+        <RemainingCharacters
+          warn={this.textValidator(input, maxLength, 0.7, 0.9)}
+          reachedLimit={this.textValidator(input, maxLength, 0.9)}
+        >
+          {`${input === null ? 0 : input.length} / ${maxLength}`}
+        </RemainingCharacters>
         <SubmitButton onPress={this.onPress}>
           <ButtonText>Create deck</ButtonText>
         </SubmitButton>
@@ -88,10 +105,34 @@ const AddDeckSubtitle = styled(Title2)`
 `;
 
 const Input = styled(TextInput)`
-  margin: 20px 25px;
+  margin: 20px 25px 0px 25px;
   height: 40px;
-  border-bottom-color: ${black};
+  border-bottom-color: ${(props) => {
+    if (props.warn) {
+      return orange;
+    } else if (props.reachedLimit) {
+      return red;
+    }
+    return black;
+  }};
   border-bottom-width: 1px;
+`;
+
+const RemainingCharacters = styled(Body)`
+  font-size: 10px;
+  color: ${(props) => {
+    if (props.warn) {
+      return orange;
+    } else if (props.reachedLimit) {
+      return red;
+    }
+    return grey;
+  }};
+  text-align: right;
+  margin-right: 25px;
+  font-weight: ${(props) => {
+    return props.warn || props.reachedLimit ? `bold` : `normal`;
+  }};
 `;
 
 const SubmitButton = styled(TouchableOpacity)`

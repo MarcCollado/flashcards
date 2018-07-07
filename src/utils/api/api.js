@@ -23,13 +23,16 @@ async function fetchAPI(query) {
 
 function saveToDeviceStorage(decks) {
   return AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(decks))
-    .then(() => {})
+    .then()
     .catch((err) => console.error('Error saving data to device => ', err));
 }
 
 export function backgroundSync() {
   return fetchAPI(GET_DECKS_QUERY)
-    .then((resAPI) => saveToDeviceStorage(resAPI.data.decks))
+    .then((resAPI) => {
+      saveToDeviceStorage(resAPI.data.decks);
+      return resAPI.data.decks;
+    })
     .catch((err) => console.error('Error fetching data from the API => ', err));
 }
 
@@ -58,7 +61,7 @@ export function addDeck(title, coverImageUrl) {
     fetchAPI(ADD_DECK_QUERY(title, coverImageUrl))
       // returns the { newDeck }
       .then((resAPI) => resAPI.data.addDeck)
-      .catch((err) => console.error('Error adding new deck => ', err))
+      .catch((err) => console.error('Error adding deck => ', err))
   );
 }
 

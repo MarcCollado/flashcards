@@ -1,5 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -15,6 +20,7 @@ import Finished from './src/components/Finished';
 import Question from './src/components/Question';
 
 import { askNotificationPermissions } from './src/utils/notifications/local';
+import Toast from './src/utils/notifications/toast';
 import { getDecks, backgroundSync } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
 
@@ -34,6 +40,7 @@ class Home extends React.Component {
   state = {
     decks: null,
     loading: true,
+    toast: null,
   };
 
   componentDidMount() {
@@ -41,20 +48,35 @@ class Home extends React.Component {
 
     askNotificationPermissions();
 
-    getDecks().then((decks) => {
-      this.setState(
-        () => {
-          return {
-            decks,
-            loading: false,
-          };
-        },
-        () => backgroundSync(),
-      );
-    });
+    getDecks()
+      .then((decks) => {
+        this.setState(
+          () => {
+            return {
+              decks,
+              loading: false,
+              refreshing: false,
+              toast: null,
+            };
+          },
+          () => backgroundSync(),
+        );
+      })
+      .catch((err) => console.error('Error on componentDidMount => ', err));
 
-    navigation.setParams({ syncState: this.syncState });
+    navigation.setParams({
+      syncState: this.syncState,
+    });
   }
+
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    backgroundSync()
+      .then((decks) => {
+        this.setState({ decks, refreshing: false });
+      })
+      .catch((err) => console.error('Error on app refresh => ', err));
+  };
 
   syncState = (delta, id) => {
     if (id !== undefined) {
@@ -71,6 +93,7 @@ class Home extends React.Component {
           });
           return {
             decks: decksWithDelta,
+            toast: 'newCard',
           };
         },
         () => backgroundSync(),
@@ -80,6 +103,7 @@ class Home extends React.Component {
         (prevState) => {
           return {
             decks: prevState.decks.concat(delta),
+            toast: 'newDeck',
           };
         },
         () => backgroundSync(),
@@ -104,8 +128,19 @@ class Home extends React.Component {
     ));
   };
 
+  renderToast = (message) => {
+    switch (message) {
+      case 'newDeck':
+        return <Toast>{`A new deck was created 👍`}</Toast>;
+      case 'newCard':
+        return <Toast>{`The card was added to the deck 👍`}</Toast>;
+      default:
+        return null;
+    }
+  };
+
   render() {
-    const { loading } = this.state;
+    const { loading, refreshing, toast } = this.state;
 
     if (loading === true) {
       return <AppLoading />;
@@ -115,8 +150,16 @@ class Home extends React.Component {
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={this.onRefresh}
+            title="Fetching decks..."
+          />
+        }
       >
         {this.renderDecks()}
+        {toast && this.renderToast(toast)}
       </ScrollView>
     );
   }

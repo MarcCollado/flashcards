@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Body, Title1, Title2 } from '../utils/ui/typography';
-import { lightGrey, white, orange, green, purple } from '../utils/ui/colors';
+import { greyLight, white, orange, green, purple } from '../utils/ui/colors';
 
 class Question extends React.Component {
   state = {
@@ -129,7 +129,7 @@ class Question extends React.Component {
 
 const QuizView = styled(View)`
   height: 100%;
-  background-color: ${lightGrey};
+  background-color: ${greyLight};
 `;
 
 const QuizMode = styled(View)`

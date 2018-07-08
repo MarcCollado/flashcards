@@ -10,15 +10,16 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { AppLoading } from 'expo';
 import { Feather } from '@expo/vector-icons';
-
-import AddDeck from './src/components/AddDeck';
+// import components
 import AddCard from './src/components/AddCard';
+import AddDeck from './src/components/AddDeck';
 import Answer from './src/components/Answer';
 import Deck from './src/components/Deck';
 import DeckDetail from './src/components/DeckDetail';
 import Finished from './src/components/Finished';
 import Question from './src/components/Question';
-
+// import utils
+import ErrorPage from './src/utils/notifications/error';
 import { askNotificationPermissions } from './src/utils/notifications/local';
 import Toast from './src/utils/notifications/toast';
 import { getDecks, backgroundSync } from './src/utils/api/api';
@@ -62,7 +63,7 @@ class Home extends React.Component {
           () => backgroundSync(),
         );
       })
-      .catch((err) => console.error('Error on componentDidMount => ', err));
+      .catch((err) => navigation.navigate('ErrorPage', { err }));
 
     navigation.setParams({
       syncState: this.syncState,
@@ -70,12 +71,14 @@ class Home extends React.Component {
   }
 
   onRefresh = () => {
+    const { navigation } = this.props;
+
     this.setState({ refreshing: true });
     backgroundSync()
       .then((decks) => {
         this.setState({ decks, refreshing: false });
       })
-      .catch((err) => console.error('Error on app refresh => ', err));
+      .catch((err) => navigation.navigate('ErrorPage', { err }));
   };
 
   syncState = (delta, id) => {
@@ -222,6 +225,9 @@ const RootStack = createStackNavigator(
     },
     Finished: {
       screen: Finished,
+    },
+    ErrorPage: {
+      screen: ErrorPage,
     },
   },
   {

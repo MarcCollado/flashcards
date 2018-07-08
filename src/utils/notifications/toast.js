@@ -3,7 +3,7 @@ import { Animated, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { lightGrey } from '../ui/colors';
+import { greyLight } from '../ui/colors';
 import { Body } from '../ui/typography';
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     height: 70,
     width: '90%',
     borderRadius: 12,
-    backgroundColor: `${lightGrey}`,
+    backgroundColor: `${greyLight}`,
     position: 'absolute',
   },
 });
@@ -70,7 +70,7 @@ const NotificationText = styled(Body)`
 `;
 
 Toast.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default Toast;

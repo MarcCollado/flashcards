@@ -20,7 +20,11 @@ import Finished from './src/components/Finished';
 import Question from './src/components/Question';
 // import utils
 import ErrorPage from './src/utils/notifications/error';
-import { askNotificationPermissions } from './src/utils/notifications/local';
+import WelcomePage from './src/utils/notifications/welcome';
+import {
+  askNotificationPermissions,
+  getNotificationPermissions,
+} from './src/utils/notifications/local';
 import Toast from './src/utils/notifications/toast';
 import { getDecks, backgroundSync } from './src/utils/api/api';
 import { blue, white } from './src/utils/ui/colors';
@@ -41,13 +45,13 @@ class Home extends React.Component {
   state = {
     decks: null,
     loading: true,
+    notifications: false,
+    refreshing: false,
     toast: null,
   };
 
   componentDidMount() {
     const { navigation } = this.props;
-
-    askNotificationPermissions();
 
     getDecks()
       .then((decks) => {
@@ -79,6 +83,15 @@ class Home extends React.Component {
         this.setState({ decks, refreshing: false });
       })
       .catch((err) => navigation.navigate('ErrorPage', { err }));
+  };
+
+  initialSetup = (notifications) => {
+    if (notifications) {
+      askNotificationPermissions();
+    }
+    this.setState({
+      notifications: true,
+    });
   };
 
   syncState = (delta, id) => {
@@ -143,9 +156,14 @@ class Home extends React.Component {
   };
 
   render() {
-    const { loading, refreshing, toast } = this.state;
+    const { loading, notifications, refreshing, toast } = this.state;
+    const { navigation } = this.props;
 
-    if (loading === true) {
+    if (!notifications) {
+      return <WelcomePage initialSetup={this.initialSetup} />;
+    }
+
+    if (loading) {
       return <AppLoading />;
     }
 
@@ -228,6 +246,9 @@ const RootStack = createStackNavigator(
     },
     ErrorPage: {
       screen: ErrorPage,
+    },
+    WelcomePage: {
+      screen: WelcomePage,
     },
   },
   {

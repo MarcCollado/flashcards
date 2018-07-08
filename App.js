@@ -17,17 +17,14 @@ import Answer from './src/components/Answer';
 import Deck from './src/components/Deck';
 import DeckDetail from './src/components/DeckDetail';
 import Finished from './src/components/Finished';
-import Question from './src/components/Question';
+import Quiz from './src/components/Quiz';
 // import utils
 import ErrorPage from './src/utils/notifications/error';
 import WelcomePage from './src/utils/notifications/welcome';
-import {
-  askNotificationPermissions,
-  getNotificationPermissions,
-} from './src/utils/notifications/local';
+import { askNotificationPermissions } from './src/utils/notifications/local';
 import Toast from './src/utils/notifications/toast';
 import { getDecks, backgroundSync } from './src/utils/api/api';
-import { blue, white } from './src/utils/ui/colors';
+import { blue, white, purple } from './src/utils/ui/colors';
 
 const styles = StyleSheet.create({
   container: {
@@ -215,10 +212,22 @@ const StackNavigator = createStackNavigator(
         headerTitleStyle: {
           fontWeight: 'bold',
         },
+        headerBackTitle: null,
       }),
     },
-    Question: {
-      screen: Question,
+    Quiz: {
+      screen: Quiz,
+      navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+          backgroundColor: purple,
+        },
+        headerTintColor: white,
+        title: 'Quiz mode',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          color: white,
+        },
+      }),
     },
   },
   // StackNavigatorConfig

@@ -32,7 +32,7 @@ const DeckDetail = ({ navigation }) => {
       <DetailButton
         primary
         onPress={() => {
-          navigation.navigate('Question', {
+          navigation.navigate('Quiz', {
             deckCoverImage,
             deckTitle,
             cards,

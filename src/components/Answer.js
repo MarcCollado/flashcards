@@ -7,10 +7,6 @@ import { blue, white } from '../utils/ui/colors';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 
 class Answer extends React.Component {
-  state = {};
-
-  onPress = () => {};
-
   render() {
     const { navigation } = this.props;
     const answer = navigation.getParam('answer');
@@ -19,36 +15,23 @@ class Answer extends React.Component {
 
     return (
       <View>
-        <Progress>
-          {progress === numberOfCards
-            ? `Last question`
-            : `Question ${progress} of ${numberOfCards}`}
-        </Progress>
-
         <AnswerView>
           <AnswerText>{answer}</AnswerText>
         </AnswerView>
 
-        <SubmitButton onPress={this.onPress}>
-          <ButtonText>Next question</ButtonText>
+        <SubmitButton onPress={() => navigation.goBack()}>
+          <ButtonText>Back to quiz</ButtonText>
         </SubmitButton>
-
-        <Button title="Go back" onPress={() => navigation.goBack()} />
       </View>
     );
   }
 }
 
-const Progress = styled(Title1)`
-  margin: 60px auto 10px auto;
-  text-align: center;
-`;
-
 const AnswerView = styled(View)`
   width: 80%;
   height: 340;
   border-radius: 8px;
-  margin: 30px auto 10px auto;
+  margin: 100px auto 10px auto;
   padding: 25px;
   justify-content: center;
   background-color: ${white};

@@ -3,10 +3,12 @@ import { Button, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Body, Title1, Title2 } from '../utils/ui/typography';
-import { greyLight, white, orange, green, purple } from '../utils/ui/colors';
+// import QuizCard from './QuizCard';
 
-class Question extends React.Component {
+import { Body, Title2 } from '../utils/ui/typography';
+import { greyLight, white, redApp, blueApp, purple } from '../utils/ui/colors';
+
+class Quiz extends React.Component {
   state = {
     progress: 1,
     score: 0,
@@ -29,7 +31,6 @@ class Question extends React.Component {
     const { navigation } = this.props;
     const { progress } = this.state;
 
-    const deckCoverImage = navigation.getParam('deckCoverImage');
     const deckTitle = navigation.getParam('deckTitle');
     const cards = navigation.getParam('cards');
     const restartQuiz = navigation.getParam('restartQuiz');
@@ -40,13 +41,13 @@ class Question extends React.Component {
     return (
       <QuizView>
         <QuizMode>
-          <QuizModeBody>Quiz mode</QuizModeBody>
+          <QuizModeBody>
+            {`Current deck: ${deckTitle}\n`}
+            {progress === numberOfCards
+              ? `Progress: Last question`
+              : `Progress: question ${progress} of ${numberOfCards}`}
+          </QuizModeBody>
         </QuizMode>
-        <Progress>
-          {progress === numberOfCards
-            ? `Last question`
-            : `Question ${progress} of ${numberOfCards}`}
-        </Progress>
 
         <QuestionView>
           <QuestionText>{question}</QuestionText>
@@ -76,7 +77,6 @@ class Question extends React.Component {
                   const { score, complete } = this.state;
                   if (complete) {
                     navigation.navigate('Finished', {
-                      deckCoverImage,
                       score,
                       deckTitle,
                       numberOfCards,
@@ -88,7 +88,7 @@ class Question extends React.Component {
             }
           }}
         >
-          <ButtonBody>{`🤔 Did not know`}</ButtonBody>
+          <ButtonBody>{`Don't know`}</ButtonBody>
         </ActionButton>
         <ActionButton
           primary
@@ -119,7 +119,7 @@ class Question extends React.Component {
             }
           }}
         >
-          <ButtonBody primary>{`🤓 Did know`}</ButtonBody>
+          <ButtonBody primary>{`I know 👍`}</ButtonBody>
         </ActionButton>
       </QuizView>
     );
@@ -132,20 +132,17 @@ const QuizView = styled(View)`
 `;
 
 const QuizMode = styled(View)`
-  height: 22px;
+  height: 9%;
   background: ${purple};
+  opacity: 0.5;
+  justify-content: center;
 `;
 
 const QuizModeBody = styled(Body)`
   font-weight: bold;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   color: ${white};
-`;
-
-const Progress = styled(Title1)`
-  margin: 30px auto 10px auto;
-  text-align: center;
 `;
 
 const QuestionView = styled(View)`
@@ -160,7 +157,7 @@ const QuestionView = styled(View)`
 `;
 
 const QuestionText = styled(Title2)`
-  margin: 20px auto 20px auto;
+  margin: 20px auto;
   text-align: center;
 `;
 
@@ -169,18 +166,18 @@ const ActionButton = styled(TouchableOpacity)`
   height: 55px;
   border-radius: 10px;
   margin: 10px auto 0px auto;
-  background: ${(props) => (props.primary ? green : orange)};
+  background: ${(props) => (props.primary ? blueApp : redApp)};
 `;
 
 const ButtonBody = styled(Body)`
   font-weight: bold;
   text-align: center;
   margin-top: 16px;
-  color: ${(props) => (props.primary ? white : white)};
+  color: ${white};
 `;
 
-Question.propTypes = {
+Quiz.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default Question;
+export default Quiz;

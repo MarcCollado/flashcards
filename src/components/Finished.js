@@ -46,7 +46,7 @@ class Finished extends React.Component {
         </FinishedBody>
 
         <SubmitButton
-          onPress={() => navigation.navigate('Question', restartQuiz())}
+          onPress={() => navigation.navigate('Quiz', restartQuiz())}
         >
           <ButtonText>Restart quiz</ButtonText>
         </SubmitButton>

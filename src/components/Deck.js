@@ -17,7 +17,10 @@ const Deck = ({
   const numberOfCards = cards.length;
   return (
     <DeckView Large={deckTitle.length > 20}>
-      <DeckCoverImage source={{ uri: deckCoverImage }} />
+      <CoverFrame>
+        <DeckCoverImage source={{ uri: deckCoverImage }} />
+      </CoverFrame>
+
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('DeckDetail', {
@@ -45,11 +48,15 @@ const DeckView = styled(View)`
   box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
 `;
 
+const CoverFrame = styled(View)`
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
+`;
+
 const DeckCoverImage = styled(Image)`
   width: 100%;
   height: 210px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
 `;
 
 const DeckTitle = styled(Title1)`

@@ -108,7 +108,6 @@ class Question extends React.Component {
                   const { score, complete } = this.state;
                   if (complete) {
                     navigation.navigate('Finished', {
-                      deckCoverImage,
                       score,
                       deckTitle,
                       numberOfCards,

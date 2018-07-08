@@ -39,7 +39,7 @@ class AddDeck extends React.Component {
             navigation.navigate('Home', syncState([delta])),
           ),
         )
-        .catch((err) => console.log('Error while adding the deck => ', err));
+        .catch((err) => navigation.navigate('ErrorPage', { err }));
     } else {
       Alert.alert(
         `👮‍♂️`,
@@ -73,10 +73,11 @@ class AddDeck extends React.Component {
         <Input
           enablesReturnKeyAutomatically
           autoFocus
+          clearButtonMode="while-editing"
           maxLength={maxLength}
+          onChangeText={(text) => this.setState({ input: text })}
           placeholder="Type the deck title..."
           placeholderTextColor={grey}
-          onChangeText={(text) => this.setState({ input: text })}
           warn={this.textValidator(input, maxLength, 0.7, 0.9)}
           reachedLimit={this.textValidator(input, maxLength, 0.9)}
         />

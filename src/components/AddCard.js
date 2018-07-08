@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+// import utils
 import { addCardToDeck } from '../utils/api/api';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
 import { black, blue, grey, red, orange, white } from '../utils/ui/colors';
@@ -34,7 +34,7 @@ class AddCard extends React.Component {
 
       addCardToDeck(id, questionInput, answerInput)
         .then((delta) => navigation.navigate('Home', syncState([delta], id)))
-        .catch((err) => console.log('Error adding card to deck => ', err));
+        .catch((err) => navigation.navigate('ErrorPage', { err }));
     } else {
       Alert.alert(
         `👮‍♂️`,
@@ -64,15 +64,14 @@ class AddCard extends React.Component {
         <AddCardTitle>Add a new card</AddCardTitle>
 
         <AddCardSubtitle>Question</AddCardSubtitle>
-        <MultilineInput
+        <Input
+          clearButtonMode="while-editing"
           enablesReturnKeyAutomatically
           autoFocus
           maxLength={maxLength}
-          multiline
-          numberOfLines={3}
+          onChangeText={(input) => this.setState({ questionInput: input })}
           placeholder="Type the question..."
           placeholderTextColor={grey}
-          onChangeText={(input) => this.setState({ questionInput: input })}
           warn={this.textValidator(questionInput, maxLength, 0.75, 0.9)}
           reachedLimit={this.textValidator(questionInput, maxLength, 0.9)}
         />
@@ -86,14 +85,13 @@ class AddCard extends React.Component {
         </RemainingCharacters>
 
         <AddCardSubtitle>Answer</AddCardSubtitle>
-        <MultilineInput
+        <Input
+          clearButtonMode="while-editing"
           enablesReturnKeyAutomatically
           maxLength={maxLength}
-          multiline
-          numberOfLines={3}
+          onChangeText={(input) => this.setState({ answerInput: input })}
           placeholder="Type the answer..."
           placeholderTextColor={grey}
-          onChangeText={(input) => this.setState({ answerInput: input })}
           warn={this.textValidator(answerInput, maxLength, 0.75, 0.9)}
           reachedLimit={this.textValidator(answerInput, maxLength, 0.9)}
         />
@@ -122,7 +120,7 @@ const AddCardSubtitle = styled(Title2)`
   margin: 7px 0px 0px 25px;
 `;
 
-const MultilineInput = styled(TextInput)`
+const Input = styled(TextInput)`
   margin: 15px 25px 0px 25px;
   height: 30px;
   border-bottom-color: ${(props) => {

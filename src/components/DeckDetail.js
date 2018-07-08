@@ -52,7 +52,7 @@ const DetailView = styled(View)`
 
 const CoverImage = styled(Image)`
   width: 100%;
-  height: 280px;
+  height: 50%;
 `;
 
 const DetailTitle = styled(Title1)`

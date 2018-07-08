@@ -23,7 +23,7 @@ const Title2 = styled(Text)`
   font-weight: normal;
   font-family: System;
   font-size: 22px;
-  line-height: 28px;
+  line-height: 30px;
   color: ${black};
 `;
 

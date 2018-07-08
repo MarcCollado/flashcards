@@ -17,7 +17,7 @@ const ErrorPage = ({ navigation }) => {
       </ErrorView>
 
       <ErrorSubtitle>
-        {`Ooops! Something went terribly wrong 😰 please, go back and try again.`}
+        {`Ooops! Something went terribly wrong 😰 please, go back and try again`}
       </ErrorSubtitle>
 
       <ErrorButton
@@ -40,11 +40,12 @@ const ErrorView = styled(View)`
 `;
 
 const ErrorIcon = styled(MaterialIcons)`
-  margin: 20px 0px 15px 0px;
+  margin: 20px 0px;
 `;
 
 const ErrorTitle = styled(Title1)`
   font-weight: bold;
+  text-align: center;
   color: ${white};
 `;
 

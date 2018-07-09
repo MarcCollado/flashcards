@@ -5,7 +5,7 @@ import { black } from './colors';
 
 const Headline = styled(Text)`
   font-weight: normal;
-  font-family: System;
+  font-family: 'Avenir';
   font-size: 34px;
   line-height: 41px;
   color: ${black};
@@ -13,7 +13,7 @@ const Headline = styled(Text)`
 
 const Title1 = styled(Text)`
   font-weight: normal;
-  font-family: System;
+  font-family: 'Avenir';
   font-size: 28px;
   line-height: 34px;
   color: ${black};
@@ -21,7 +21,7 @@ const Title1 = styled(Text)`
 
 const Title2 = styled(Text)`
   font-weight: normal;
-  font-family: System;
+  font-family: 'Avenir';
   font-size: 22px;
   line-height: 30px;
   color: ${black};

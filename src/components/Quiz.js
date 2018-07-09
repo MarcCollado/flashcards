@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// import QuizCard from './QuizCard';
+import QuizCard from './QuizCard';
 
-import { Body, Title2 } from '../utils/ui/typography';
+import { Body } from '../utils/ui/typography';
 import { greyLight, white, redApp, blueApp, purple } from '../utils/ui/colors';
 
 class Quiz extends React.Component {
@@ -44,21 +44,14 @@ class Quiz extends React.Component {
           <QuizModeBody>
             {`Current deck: ${deckTitle}\n`}
             {progress === numberOfCards
-              ? `Progress: Last question`
+              ? `Progress: last question`
               : `Progress: question ${progress} of ${numberOfCards}`}
           </QuizModeBody>
         </QuizMode>
 
-        <QuestionView>
-          <QuestionText>{question}</QuestionText>
-        </QuestionView>
-
-        <Button
-          title="View Answer"
-          onPress={() =>
-            navigation.navigate('Answer', { answer, progress, numberOfCards })
-          }
-        />
+        <QuizCardWrapper>
+          <QuizCard question={question} answer={answer} />
+        </QuizCardWrapper>
 
         <ActionButton
           onPress={() => {
@@ -145,20 +138,10 @@ const QuizModeBody = styled(Body)`
   color: ${white};
 `;
 
-const QuestionView = styled(View)`
-  width: 80%;
-  height: 340;
-  border-radius: 8px;
-  margin: 30px auto 10px auto;
-  padding: 25px;
-  justify-content: center;
-  background-color: ${white};
+const QuizCardWrapper = styled(View)`
+  margin: 35px auto 20px;
+  align-self: center;
   box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
-`;
-
-const QuestionText = styled(Title2)`
-  margin: 20px auto;
-  text-align: center;
 `;
 
 const ActionButton = styled(TouchableOpacity)`

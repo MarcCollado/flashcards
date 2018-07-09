@@ -13,7 +13,6 @@ import { Feather } from '@expo/vector-icons';
 // import components
 import AddCard from './src/components/AddCard';
 import AddDeck from './src/components/AddDeck';
-import Answer from './src/components/Answer';
 import Deck from './src/components/Deck';
 import DeckDetail from './src/components/DeckDetail';
 import Finished from './src/components/Finished';
@@ -156,6 +155,9 @@ class Home extends React.Component {
     const { loading, notifications, refreshing, toast } = this.state;
     const { navigation } = this.props;
 
+    // if (true) {
+    //   return <QuizCard question="A" answer="B" />;
+    // }
     if (!notifications) {
       return <WelcomePage initialSetup={this.initialSetup} />;
     }
@@ -246,9 +248,6 @@ const RootStack = createStackNavigator(
     },
     AddCard: {
       screen: AddCard,
-    },
-    Answer: {
-      screen: Answer,
     },
     Finished: {
       screen: Finished,

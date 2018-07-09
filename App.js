@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 20,
   },
 });
 
@@ -153,11 +153,7 @@ class Home extends React.Component {
 
   render() {
     const { loading, notifications, refreshing, toast } = this.state;
-    const { navigation } = this.props;
 
-    // if (true) {
-    //   return <QuizCard question="A" answer="B" />;
-    // }
     if (!notifications) {
       return <WelcomePage initialSetup={this.initialSetup} />;
     }

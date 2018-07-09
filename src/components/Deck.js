@@ -44,7 +44,7 @@ const DeckView = styled(View)`
   width: 80%;
   height: ${(props) => (props.Large ? '340px' : `300px`)};
   border-radius: 8px;
-  margin: 5px 0px 15px 0px;
+  margin-bottom: 20px;
   background-color: ${white};
   box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
 `;

@@ -9,7 +9,7 @@ import {
 
 async function fetchAPI(query) {
   try {
-    const response = await fetch(DEV_URL, {
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: query,

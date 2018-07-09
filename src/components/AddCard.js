@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -60,68 +61,70 @@ class AddCard extends React.Component {
     }
 
     return (
-      <View>
-        <AddCardTitle>Add a new card</AddCardTitle>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View>
+          <AddCardTitle>Add a new card</AddCardTitle>
 
-        <AddCardSubtitle>Question</AddCardSubtitle>
-        <Input
-          clearButtonMode="while-editing"
-          enablesReturnKeyAutomatically
-          autoFocus
-          maxLength={maxLength}
-          onChangeText={(input) => this.setState({ questionInput: input })}
-          placeholder="Type the question..."
-          placeholderTextColor={grey}
-          warn={this.textValidator(questionInput, maxLength, 0.75, 0.9)}
-          reachedLimit={this.textValidator(questionInput, maxLength, 0.9)}
-        />
-        <RemainingCharacters
-          warn={this.textValidator(questionInput, maxLength, 0.75, 0.9)}
-          reachedLimit={this.textValidator(questionInput, maxLength, 0.9)}
-        >
-          {`${
-            questionInput === null ? 0 : questionInput.length
-          } / ${maxLength}`}
-        </RemainingCharacters>
+          <AddCardSubtitle>Question</AddCardSubtitle>
+          <Input
+            clearButtonMode="while-editing"
+            enablesReturnKeyAutomatically
+            autoFocus
+            maxLength={maxLength}
+            onChangeText={(input) => this.setState({ questionInput: input })}
+            placeholder="Type the question..."
+            placeholderTextColor={grey}
+            warn={this.textValidator(questionInput, maxLength, 0.75, 0.9)}
+            reachedLimit={this.textValidator(questionInput, maxLength, 0.9)}
+          />
+          <RemainingCharacters
+            warn={this.textValidator(questionInput, maxLength, 0.75, 0.9)}
+            reachedLimit={this.textValidator(questionInput, maxLength, 0.9)}
+          >
+            {`${
+              questionInput === null ? 0 : questionInput.length
+            } / ${maxLength}`}
+          </RemainingCharacters>
 
-        <AddCardSubtitle>Answer</AddCardSubtitle>
-        <Input
-          clearButtonMode="while-editing"
-          enablesReturnKeyAutomatically
-          maxLength={maxLength}
-          onChangeText={(input) => this.setState({ answerInput: input })}
-          placeholder="Type the answer..."
-          placeholderTextColor={grey}
-          warn={this.textValidator(answerInput, maxLength, 0.75, 0.9)}
-          reachedLimit={this.textValidator(answerInput, maxLength, 0.9)}
-        />
-        <RemainingCharacters
-          warn={this.textValidator(answerInput, maxLength, 0.75, 0.9)}
-          reachedLimit={this.textValidator(answerInput, maxLength, 0.9)}
-        >
-          {`${answerInput === null ? 0 : answerInput.length} / ${maxLength}`}
-        </RemainingCharacters>
+          <AddCardSubtitle>Answer</AddCardSubtitle>
+          <Input
+            clearButtonMode="while-editing"
+            enablesReturnKeyAutomatically
+            maxLength={maxLength}
+            onChangeText={(input) => this.setState({ answerInput: input })}
+            placeholder="Type the answer..."
+            placeholderTextColor={grey}
+            warn={this.textValidator(answerInput, maxLength, 0.75, 0.9)}
+            reachedLimit={this.textValidator(answerInput, maxLength, 0.9)}
+          />
+          <RemainingCharacters
+            warn={this.textValidator(answerInput, maxLength, 0.75, 0.9)}
+            reachedLimit={this.textValidator(answerInput, maxLength, 0.9)}
+          >
+            {`${answerInput === null ? 0 : answerInput.length} / ${maxLength}`}
+          </RemainingCharacters>
 
-        <SubmitButton onPress={this.onPress}>
-          <ButtonText>Add card</ButtonText>
-        </SubmitButton>
+          <SubmitButton onPress={this.onPress}>
+            <ButtonText>Add card</ButtonText>
+          </SubmitButton>
 
-        <Button title="Cancel" onPress={() => navigation.goBack()} />
-      </View>
+          <Button title="Cancel" onPress={() => navigation.goBack()} />
+        </View>
+      </SafeAreaView>
     );
   }
 }
 
 const AddCardTitle = styled(Title1)`
-  margin: 60px 0px 10px 25px;
+  margin: 20px 0px 0px 25px;
 `;
 
 const AddCardSubtitle = styled(Title2)`
-  margin: 7px 0px 0px 25px;
+  margin: 10px 0px 0px 25px;
 `;
 
 const Input = styled(TextInput)`
-  margin: 15px 25px 0px 25px;
+  margin: 10px 25px 0px 25px;
   height: 30px;
   border-bottom-color: ${(props) => {
     if (props.warn) {
@@ -155,7 +158,7 @@ const SubmitButton = styled(TouchableOpacity)`
   width: 80%;
   height: 55px;
   border-radius: 10px;
-  margin: 15px auto 10px auto;
+  margin: 15px auto;
   background: ${blue};
 `;
 

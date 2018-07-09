@@ -6,14 +6,15 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+// import utils
 import { addDeck } from '../utils/api/api';
 import { black, blue, grey, red, orange, white } from '../utils/ui/colors';
 import { Body, Title1, Title2 } from '../utils/ui/typography';
-import { unsplash } from '../utils/api/vars';
+import { unsplash } from '../utils/api/unsplash';
 
 class AddDeck extends React.Component {
   state = {
@@ -65,40 +66,42 @@ class AddDeck extends React.Component {
     }
 
     return (
-      <View>
-        <AddDeckTitle>Create a new deck</AddDeckTitle>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View>
+          <AddDeckTitle>Create a new deck</AddDeckTitle>
 
-        <AddDeckSubtitle>Deck title</AddDeckSubtitle>
+          <AddDeckSubtitle>Deck title</AddDeckSubtitle>
 
-        <Input
-          enablesReturnKeyAutomatically
-          autoFocus
-          clearButtonMode="while-editing"
-          maxLength={maxLength}
-          onChangeText={(text) => this.setState({ input: text })}
-          placeholder="Type the deck title..."
-          placeholderTextColor={grey}
-          warn={this.textValidator(input, maxLength, 0.7, 0.9)}
-          reachedLimit={this.textValidator(input, maxLength, 0.9)}
-        />
-        <RemainingCharacters
-          warn={this.textValidator(input, maxLength, 0.7, 0.9)}
-          reachedLimit={this.textValidator(input, maxLength, 0.9)}
-        >
-          {`${input === null ? 0 : input.length} / ${maxLength}`}
-        </RemainingCharacters>
-        <SubmitButton onPress={this.onPress}>
-          <ButtonText>Create deck</ButtonText>
-        </SubmitButton>
+          <Input
+            enablesReturnKeyAutomatically
+            autoFocus
+            clearButtonMode="while-editing"
+            maxLength={maxLength}
+            onChangeText={(text) => this.setState({ input: text })}
+            placeholder="Type the deck title..."
+            placeholderTextColor={grey}
+            warn={this.textValidator(input, maxLength, 0.7, 0.9)}
+            reachedLimit={this.textValidator(input, maxLength, 0.9)}
+          />
+          <RemainingCharacters
+            warn={this.textValidator(input, maxLength, 0.7, 0.9)}
+            reachedLimit={this.textValidator(input, maxLength, 0.9)}
+          >
+            {`${input === null ? 0 : input.length} / ${maxLength}`}
+          </RemainingCharacters>
+          <SubmitButton onPress={this.onPress}>
+            <ButtonText>Create deck</ButtonText>
+          </SubmitButton>
 
-        <Button title="Cancel" onPress={() => navigation.goBack()} />
-      </View>
+          <Button title="Cancel" onPress={() => navigation.goBack()} />
+        </View>
+      </SafeAreaView>
     );
   }
 }
 
 const AddDeckTitle = styled(Title1)`
-  margin: 80px 0px 10px 25px;
+  margin: 20px 0px 0px 25px;
 `;
 
 const AddDeckSubtitle = styled(Title2)`
@@ -106,7 +109,7 @@ const AddDeckSubtitle = styled(Title2)`
 `;
 
 const Input = styled(TextInput)`
-  margin: 20px 25px 0px 25px;
+  margin: 10px 25px 0px 25px;
   height: 40px;
   border-bottom-color: ${(props) => {
     if (props.warn) {
@@ -140,7 +143,7 @@ const SubmitButton = styled(TouchableOpacity)`
   width: 80%;
   height: 55px;
   border-radius: 10px;
-  margin: 20px auto 10px auto;
+  margin: 15px auto;
   background: ${blue};
 `;
 

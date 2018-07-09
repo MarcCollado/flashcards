@@ -14,8 +14,8 @@ import { white, blue, grey } from '../ui/colors';
 import { Body, Title1, Title2 } from '../ui/typography';
 
 const WelcomePage = ({ initialSetup }) => {
-  const welcomeBackgroundPath = '../../../public/assets/images/welcome-bg.png';
-  const welcomeRoundIconPath = '../../../public/assets/images/icn-round.png';
+  const welcomeBackgroundPath = `../../../public/assets/images/welcome-bg.png`;
+  const welcomeRoundIconPath = `../../../public/assets/images/icn-round.png`;
 
   return (
     <View>
@@ -29,7 +29,7 @@ const WelcomePage = ({ initialSetup }) => {
       </WelcomeSubtitle>
 
       <WelcomeBody>
-        {`Flashcards will send you friendly reminders so you don't forget to study.`}
+        {`Flashcards will send you friendly reminders so you don't forget to study`}
       </WelcomeBody>
 
       <WelcomeButton onPress={() => initialSetup(true)}>

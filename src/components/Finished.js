@@ -38,7 +38,7 @@ class Finished extends React.Component {
         </FinishedView>
 
         <FinishedSubtitle>
-          {`You correctly guessed\n${score} questions out of ${numberOfCards}\nin ${deckTitle}`}
+          {`You correctly guessed\n${score} out of ${numberOfCards} questions \nin ${deckTitle}`}
         </FinishedSubtitle>
 
         <FinishedBody>

@@ -1,11 +1,11 @@
 import { AsyncStorage } from 'react-native';
+import { DEV_URL, API_URL, STORAGE_KEY } from 'react-native-dotenv';
 import {
   GET_DECKS_QUERY,
   GET_DECK_QUERY,
   ADD_DECK_QUERY,
   ADD_CARD_QUERY,
 } from './queries';
-import { DEV_URL, STORAGE_KEY } from './vars';
 
 async function fetchAPI(query) {
   try {

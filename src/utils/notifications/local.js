@@ -1,7 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
-
-import { NOTIFICATION_KEY } from '../api/vars';
+import { NOTIFICATION_KEY } from 'react-native-dotenv';
 
 function createNotification() {
   return {
@@ -11,6 +10,29 @@ function createNotification() {
       sound: true,
     },
   };
+}
+
+export function getNotificationPermissions() {
+  return Permissions.getAsync(Permissions.USER_FACING_NOTIFICATIONS)
+    .then(({ status }) => {
+      if (status !== 'granted') {
+        return false;
+      }
+      return true;
+    })
+    .catch((err) => console.error('Error getting permissions => ', err));
+}
+
+export function askNotificationPermissions() {
+  Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS)
+    .then(({ status }) => {
+      if (status !== 'granted') {
+        alert(
+          `🙋‍♀️ Hey! You might want to enable notifications, otherwise you're missing out on daily reminders.`,
+        );
+      }
+    })
+    .catch((err) => console.error('Error getting permissions => ', err));
 }
 
 export function clearLocalNotifications() {
@@ -29,18 +51,6 @@ export function sendLocalNotification() {
       }
     })
     .catch((err) => console.error('Error sending local notification => ', err));
-}
-
-export function askNotificationPermissions() {
-  Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS)
-    .then(({ status }) => {
-      if (status !== 'granted') {
-        alert(
-          `🙋‍♀️ Hey! You might want to enable notifications, otherwise you're missing out on daily reminders.`,
-        );
-      }
-    })
-    .catch((err) => console.error('Error getting permissions => ', err));
 }
 
 export function setDailyNotification() {

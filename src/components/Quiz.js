@@ -8,6 +8,7 @@ import QuizCard from './QuizCard';
 import { Body } from '../utils/ui/typography';
 import {
   greyLight,
+  grey,
   white,
   red,
   redLight,
@@ -60,6 +61,8 @@ class Quiz extends React.Component {
         <QuizCardWrapper>
           <QuizCard question={question} answer={answer} />
         </QuizCardWrapper>
+
+        <Tooltip>{`Tap the card to flip`}</Tooltip>
 
         <ActionButton
           onPress={() => {
@@ -147,9 +150,16 @@ const QuizModeBody = styled(Body)`
 `;
 
 const QuizCardWrapper = styled(View)`
-  margin: 30px auto 20px;
+  margin: 30px auto 10px;
   align-self: center;
   box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
+`;
+
+const Tooltip = styled(Body)`
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: ${grey};
 `;
 
 const ActionButton = styled(TouchableOpacity)`

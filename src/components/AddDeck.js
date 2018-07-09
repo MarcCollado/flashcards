@@ -143,7 +143,7 @@ const SubmitButton = styled(TouchableOpacity)`
   width: 80%;
   height: 55px;
   border-radius: 10px;
-  margin: 15px auto;
+  margin: 15px auto 5px auto;
   background: ${blue};
 `;
 

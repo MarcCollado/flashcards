@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  StatusBar,
   Button,
   Image,
   ImageBackground,
   TouchableOpacity,
   View,
+  SafeAreaView,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -30,65 +30,72 @@ class Finished extends React.Component {
     const finishedIconPath = '../../public/assets/images/icn-finished.png';
 
     return (
-      <View>
-        <StatusBar hidden />
-        <FinishedView source={require(finishedBackgroundPath)}>
-          <FinishedIcon source={require(finishedIconPath)} />
-          <FinishedTitle>{`Quiz completed`}</FinishedTitle>
-        </FinishedView>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View>
+          <FinishedView source={require(finishedBackgroundPath)}>
+            <FinishedIcon source={require(finishedIconPath)} />
+            <FinishedTitle>{`Quiz completed`}</FinishedTitle>
+          </FinishedView>
+          <Wrapper>
+            <FinishedSubtitle>
+              {`You correctly guessed\n${score} out of ${numberOfCards} questions \nin ${deckTitle}`}
+            </FinishedSubtitle>
 
-        <FinishedSubtitle>
-          {`You correctly guessed\n${score} out of ${numberOfCards} questions \nin ${deckTitle}`}
-        </FinishedSubtitle>
+            <FinishedBody>
+              {`From here you can either restart the quiz or go back to the deck details`}
+            </FinishedBody>
 
-        <FinishedBody>
-          {`From here you can either restart the quiz or go back to the deck details`}
-        </FinishedBody>
+            <SubmitButton
+              onPress={() => navigation.navigate('Quiz', restartQuiz())}
+            >
+              <ButtonText>Restart quiz</ButtonText>
+            </SubmitButton>
 
-        <SubmitButton
-          onPress={() => navigation.navigate('Quiz', restartQuiz())}
-        >
-          <ButtonText>Restart quiz</ButtonText>
-        </SubmitButton>
-
-        <Button
-          title="Back to deck details"
-          onPress={() => navigation.navigate('DeckDetail')}
-        />
-      </View>
+            <Button
+              title="Back to deck details"
+              onPress={() => navigation.navigate('DeckDetail')}
+            />
+          </Wrapper>
+        </View>
+      </SafeAreaView>
     );
   }
 }
 
 const FinishedView = styled(ImageBackground)`
-  height: 50%;
+  padding: 15px;
   box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
   align-items: center;
   justify-content: center;
 `;
 
 const FinishedIcon = styled(Image)`
-  width: 125px;
-  height: 125px;
-  margin: 10px 0px 25px;
+  width: 90px;
+  height: 90px;
+  margin-top: 10px;
 `;
 
 const FinishedTitle = styled(Title1)`
+  margin-top: 20px;
   font-weight: bold;
   text-align: center;
   color: ${white};
 `;
 
+const Wrapper = styled(View)`
+  align-items: center;
+`;
+
 const FinishedSubtitle = styled(Title2)`
   width: 80%;
   text-align: center;
-  margin: 30px auto 10px auto;
+  margin-top: 30px;
 `;
 
 const FinishedBody = styled(Body)`
   width: 80%;
+  margin-top: 20px;
   text-align: center;
-  margin: 10px auto 15px auto;
   color: ${grey};
 `;
 
@@ -96,7 +103,7 @@ const SubmitButton = styled(TouchableOpacity)`
   width: 80%;
   height: 55px;
   border-radius: 10px;
-  margin: 20px auto 10px auto;
+  margin: 20px auto 5px auto;
   background: ${blue};
 `;
 

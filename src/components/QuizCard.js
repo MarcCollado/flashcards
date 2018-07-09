@@ -12,8 +12,8 @@ import { white } from '../utils/ui/colors';
 
 const styles = StyleSheet.create({
   flipCard: {
-    width: 280,
-    height: 340,
+    width: 300,
+    height: 300,
     borderRadius: 8,
     padding: 25,
     justifyContent: 'center',

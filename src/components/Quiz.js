@@ -6,7 +6,15 @@ import styled from 'styled-components';
 import QuizCard from './QuizCard';
 
 import { Body } from '../utils/ui/typography';
-import { greyLight, white, redApp, blueApp, purple } from '../utils/ui/colors';
+import {
+  greyLight,
+  white,
+  red,
+  redLight,
+  green,
+  greenLight,
+  purple,
+} from '../utils/ui/colors';
 
 class Quiz extends React.Component {
   state = {
@@ -81,10 +89,10 @@ class Quiz extends React.Component {
             }
           }}
         >
-          <ButtonBody>{`Don't know`}</ButtonBody>
+          <ButtonBody>{`Wrong`}</ButtonBody>
         </ActionButton>
         <ActionButton
-          primary
+          correct
           onPress={() => {
             if (progress < numberOfCards) {
               this.setState((prevState) => ({
@@ -112,7 +120,7 @@ class Quiz extends React.Component {
             }
           }}
         >
-          <ButtonBody primary>{`I know 👍`}</ButtonBody>
+          <ButtonBody correct>{`Correct`}</ButtonBody>
         </ActionButton>
       </QuizView>
     );
@@ -125,7 +133,7 @@ const QuizView = styled(View)`
 `;
 
 const QuizMode = styled(View)`
-  height: 9%;
+  padding: 7px;
   background: ${purple};
   opacity: 0.5;
   justify-content: center;
@@ -139,7 +147,7 @@ const QuizModeBody = styled(Body)`
 `;
 
 const QuizCardWrapper = styled(View)`
-  margin: 35px auto 20px;
+  margin: 30px auto 20px;
   align-self: center;
   box-shadow: 0px 4px 8px rgba(25, 25, 25, 0.15);
 `;
@@ -149,7 +157,7 @@ const ActionButton = styled(TouchableOpacity)`
   height: 55px;
   border-radius: 10px;
   margin: 10px auto 0px auto;
-  background: ${(props) => (props.primary ? blueApp : redApp)};
+  background: ${(props) => (props.correct ? greenLight : redLight)};
 `;
 
 const ButtonBody = styled(Body)`

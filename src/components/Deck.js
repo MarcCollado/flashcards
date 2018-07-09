@@ -17,10 +17,6 @@ const Deck = ({
   const numberOfCards = cards.length;
   return (
     <DeckView Large={deckTitle.length > 20}>
-      <CoverFrame>
-        <DeckCoverImage source={{ uri: deckCoverImage }} />
-      </CoverFrame>
-
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('DeckDetail', {
@@ -32,16 +28,21 @@ const Deck = ({
           });
         }}
       >
+        <CoverFrame>
+          <DeckCoverImage source={{ uri: deckCoverImage }} />
+        </CoverFrame>
+
         <DeckTitle Large={deckTitle.length > 20}>{deckTitle}</DeckTitle>
+
+        <DeckBody>{`${numberOfCards} cards in this deck`}</DeckBody>
       </TouchableOpacity>
-      <DeckBody>{`${numberOfCards} cards in this deck`}</DeckBody>
     </DeckView>
   );
 };
 
 const DeckView = styled(View)`
   width: 80%;
-  height: ${(props) => (props.Large ? '365px' : `325px`)};
+  height: ${(props) => (props.Large ? '340px' : `300px`)};
   border-radius: 8px;
   margin: 5px 0px 15px 0px;
   background-color: ${white};
@@ -56,12 +57,12 @@ const CoverFrame = styled(View)`
 
 const DeckCoverImage = styled(Image)`
   width: 100%;
-  height: 210px;
+  height: 180px;
 `;
 
 const DeckTitle = styled(Title1)`
   font-size: ${(props) => (props.Large ? '26px' : `28px`)};
-  margin: 20px 0px 5px 20px;
+  margin: 25px 0px 0px 20px;
 `;
 
 const DeckBody = styled(Body)`

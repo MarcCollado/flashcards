@@ -43,8 +43,8 @@ class AddDeck extends React.Component {
         .catch((err) => navigation.navigate('ErrorPage', { err }));
     } else {
       Alert.alert(
-        `👮‍♂️`,
-        `\nDeck titles can't be blank. Please type a title name for your new deck.`,
+        `Deck titles can't be blank`,
+        `Please enter a title name for your new deck`,
         { text: 'OK' },
         { cancelable: false },
       );

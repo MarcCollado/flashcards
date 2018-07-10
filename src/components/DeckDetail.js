@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -30,13 +30,32 @@ const DeckDetail = ({ navigation }) => {
       </DetailButton>
 
       <DetailButton
+        disabled={Boolean(numberOfCards)}
         primary
         onPress={() => {
-          navigation.navigate('Quiz', {
-            deckCoverImage,
-            deckTitle,
-            cards,
-          });
+          if (numberOfCards) {
+            navigation.navigate('Quiz', {
+              deckCoverImage,
+              deckTitle,
+              cards,
+            });
+          } else {
+            Alert.alert(
+              `This deck has no cards`,
+              `To start a quiz you need at least one card in the deck`,
+              [
+                {
+                  text: 'Add card',
+                  onPress: () =>
+                    navigation.navigate('AddCard', { id, syncState }),
+                },
+                {
+                  text: 'Go back',
+                  style: 'cancel',
+                },
+              ],
+            );
+          }
         }}
       >
         <ButtonBody primary>Start quiz</ButtonBody>

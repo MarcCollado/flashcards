@@ -38,8 +38,8 @@ class AddCard extends React.Component {
         .catch((err) => navigation.navigate('ErrorPage', { err }));
     } else {
       Alert.alert(
-        `👮‍♂️`,
-        `\nNeither questions nor answers can't be blank. Please ensure both are properly set.`,
+        `Neither questions nor answers can't be blank`,
+        `Please make sure there are no empty fields`,
         { text: 'OK' },
         { cancelable: false },
       );

@@ -10,9 +10,7 @@ import {
   greyLight,
   grey,
   white,
-  red,
   redLight,
-  green,
   greenLight,
   purple,
 } from '../utils/ui/colors';
@@ -62,7 +60,7 @@ class Quiz extends React.Component {
           <QuizCard question={question} answer={answer} />
         </QuizCardWrapper>
 
-        <Tooltip>{`Tap the card to flip`}</Tooltip>
+        <Tooltip>Tap the card to flip</Tooltip>
 
         <ActionButton
           onPress={() => {
@@ -92,7 +90,7 @@ class Quiz extends React.Component {
             }
           }}
         >
-          <ButtonBody>{`Wrong`}</ButtonBody>
+          <ButtonBody>Wrong</ButtonBody>
         </ActionButton>
         <ActionButton
           correct
@@ -123,7 +121,7 @@ class Quiz extends React.Component {
             }
           }}
         >
-          <ButtonBody correct>{`Correct`}</ButtonBody>
+          <ButtonBody correct>Correct</ButtonBody>
         </ActionButton>
       </QuizView>
     );

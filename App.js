@@ -52,14 +52,12 @@ class Home extends React.Component {
     getDecks()
       .then((decks) => {
         this.setState(
-          () => {
-            return {
-              decks,
-              loading: false,
-              refreshing: false,
-              toast: null,
-            };
-          },
+          ({
+            decks,
+            loading: false,
+            refreshing: false,
+            toast: null,
+          }),
           () => backgroundSync(),
         );
       })
@@ -112,12 +110,10 @@ class Home extends React.Component {
       );
     } else {
       this.setState(
-        (prevState) => {
-          return {
-            decks: prevState.decks.concat(delta),
-            toast: 'newDeck',
-          };
-        },
+        (prevState) => ({
+          decks: prevState.decks.concat(delta),
+          toast: 'newDeck',
+        }),
         () => backgroundSync(),
       );
     }
@@ -143,16 +139,18 @@ class Home extends React.Component {
   renderToast = (message) => {
     switch (message) {
       case 'newDeck':
-        return <Toast>{`A new deck was created 👍`}</Toast>;
+        return <Toast>A new deck was created 👍</Toast>;
       case 'newCard':
-        return <Toast>{`The card was added to the deck 👍`}</Toast>;
+        return <Toast>The card was added to the deck 👍</Toast>;
       default:
         return null;
     }
   };
 
   render() {
-    const { loading, notifications, refreshing, toast } = this.state;
+    const {
+      loading, notifications, refreshing, toast,
+    } = this.state;
 
     if (!notifications) {
       return <WelcomePage initialSetup={this.initialSetup} />;

@@ -36,10 +36,9 @@ class AddDeck extends React.Component {
         .getRandomPhoto()
         .then((img) => img.json())
         .then((img) =>
-          addDeck(deckTitle, img.urls.small).then((delta) =>
-            navigation.navigate('Home', syncState([delta])),
-          ),
-        )
+          addDeck(deckTitle, img.urls.small)
+            .then((delta) =>
+              navigation.navigate('Home', syncState([delta]))))
         .catch((err) => navigation.navigate('ErrorPage', { err }));
     } else {
       Alert.alert(
@@ -134,9 +133,7 @@ const RemainingCharacters = styled(Body)`
   }};
   text-align: right;
   margin-right: 25px;
-  font-weight: ${(props) => {
-    return props.warn || props.reachedLimit ? `bold` : `normal`;
-  }};
+  font-weight: ${(props) => (props.warn || props.reachedLimit ? `bold` : `normal`)};
 `;
 
 const SubmitButton = styled(TouchableOpacity)`

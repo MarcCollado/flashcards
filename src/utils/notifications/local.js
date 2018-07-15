@@ -4,7 +4,7 @@ import { NOTIFICATION_KEY } from 'react-native-dotenv';
 
 function createNotification() {
   return {
-    title: "Still haven't studied today...",
+    title: 'Still haven\'t studied today...',
     body: '🙋‍♀️ make some time and practice with some flashcards',
     ios: {
       sound: true,
@@ -27,9 +27,7 @@ export function askNotificationPermissions() {
   Permissions.askAsync(Permissions.USER_FACING_NOTIFICATIONS)
     .then(({ status }) => {
       if (status !== 'granted') {
-        alert(
-          `🙋‍♀️ Hey! You might want to enable notifications, otherwise you're missing out on daily reminders.`,
-        );
+        alert(`🙋‍♀️ Hey! You might want to enable notifications, otherwise you're missing out on daily reminders.`);
       }
     })
     .catch((err) => console.error('Error getting permissions => ', err));
@@ -38,9 +36,7 @@ export function askNotificationPermissions() {
 export function clearLocalNotifications() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)
-    .catch((err) =>
-      console.error('Error clearing local notifications => ', err),
-    );
+    .catch((err) => console.error('Error clearing local notifications => ', err));
 }
 
 export function sendLocalNotification() {
@@ -73,22 +69,14 @@ export function setDailyNotification() {
                   time: tomorrow,
                   repeat: 'day',
                 },
-              ).then((id) =>
-                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(id)),
-              );
+              ).then((id) => AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(id)));
             } else {
-              alert(
-                `🙋‍♀️ Hey! You might want to enable notifications, otherwise you're missing out on daily reminders.`,
-              );
+              alert(`🙋‍♀️ Hey! You might want to enable notifications, otherwise you're missing out on daily reminders.`);
             }
           })
           .catch((err) => console.error('Error getting permissions => ', err));
       }
     })
     .catch((err) =>
-      console.error(
-        'Error retreiving notification from local storage => ',
-        err,
-      ),
-    );
+      console.error('Error retreiving notification from local storage => ', err));
 }

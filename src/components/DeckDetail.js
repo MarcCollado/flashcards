@@ -30,7 +30,7 @@ const DeckDetail = ({ navigation }) => {
       </DetailButton>
 
       <DetailButton
-        disabled={Boolean(numberOfCards)}
+        disabled={Boolean(!numberOfCards)}
         primary
         onPress={() => {
           if (numberOfCards) {

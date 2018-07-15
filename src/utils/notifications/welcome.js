@@ -33,7 +33,7 @@ const WelcomePage = ({ initialSetup }) => {
         </WelcomeBody>
 
         <WelcomeButton onPress={() => initialSetup(true)}>
-          <ButtonText>{`Activate notifications`}</ButtonText>
+          <ButtonText>Activate notifications</ButtonText>
         </WelcomeButton>
 
         <Button

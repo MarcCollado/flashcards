@@ -34,7 +34,7 @@ class Finished extends React.Component {
         <View>
           <FinishedView source={require(finishedBackgroundPath)}>
             <FinishedIcon source={require(finishedIconPath)} />
-            <FinishedTitle>{`Quiz completed`}</FinishedTitle>
+            <FinishedTitle>Quiz completed</FinishedTitle>
           </FinishedView>
           <Wrapper>
             <FinishedSubtitle>

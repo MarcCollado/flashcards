@@ -149,9 +149,7 @@ const RemainingCharacters = styled(Body)`
   }};
   text-align: right;
   margin-right: 25px;
-  font-weight: ${(props) => {
-    return props.warn || props.reachedLimit ? `bold` : `normal`;
-  }};
+  font-weight: ${(props) => (props.warn || props.reachedLimit ? `bold` : `normal`)};
 `;
 
 const SubmitButton = styled(TouchableOpacity)`

@@ -38,16 +38,17 @@ export function backgroundSync() {
 
 // returns all decks from the database
 export function getDecks() {
-  return AsyncStorage.getItem(STORAGE_KEY).then((decks) => {
-    if (decks) {
-      // console.log('api/getDecks => GET DECKS FROM DEVICE');
-      return JSON.parse(decks);
-    }
-    // console.log('api/getDecks => GET DECKS FROM API');
-    return fetchAPI(GET_DECKS_QUERY)
-      .then((resAPI) => resAPI.data.decks)
-      .catch((err) => console.error('Error fetching decks => ', err));
-  });
+  return AsyncStorage.getItem(STORAGE_KEY)
+    .then((decks) => {
+      if (decks) {
+        // console.log('api/getDecks => GET DECKS FROM DEVICE');
+        return JSON.parse(decks);
+      }
+      // console.log('api/getDecks => GET DECKS FROM API');
+      return fetchAPI(GET_DECKS_QUERY)
+        .then((resAPI) => resAPI.data.decks)
+        .catch((err) => console.error('Error fetching decks => ', err));
+    });
 }
 
 export function getDeck(id) {

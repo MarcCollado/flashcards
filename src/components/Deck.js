@@ -8,18 +8,19 @@ import { Title1, Body } from '../utils/ui/typography';
 
 const Deck = ({
   id,
+  cards,
   deckCoverImage,
   deckTitle,
-  cards,
-  navigation,
+  navigate,
   syncState,
 }) => {
   const numberOfCards = cards.length;
+
   return (
     <DeckView Large={deckTitle.length > 20}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('DeckDetail', {
+          navigate('DeckDetail', {
             id,
             deckCoverImage,
             deckTitle,
@@ -71,10 +72,10 @@ const DeckBody = styled(Body)`
 
 Deck.propTypes = {
   id: PropTypes.string.isRequired,
+  cards: PropTypes.array.isRequired,
   deckCoverImage: PropTypes.string.isRequired,
   deckTitle: PropTypes.string.isRequired,
-  navigation: PropTypes.object.isRequired,
-  cards: PropTypes.array.isRequired,
+  navigate: PropTypes.func.isRequired,
   syncState: PropTypes.func.isRequired,
 };
 

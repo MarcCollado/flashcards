@@ -51,15 +51,12 @@ class Home extends React.Component {
 
     getDecks()
       .then((decks) => {
-        this.setState(
-          ({
-            decks,
-            loading: false,
-            refreshing: false,
-            toast: null,
-          }),
-          () => backgroundSync(),
-        );
+        this.setState(({
+          decks,
+          loading: false,
+          refreshing: false,
+          toast: null,
+        }));
       })
       .catch((err) => navigation.navigate('ErrorPage', { err }));
 
@@ -69,14 +66,14 @@ class Home extends React.Component {
   }
 
   onRefresh = () => {
-    const { navigation } = this.props;
+    const { navigate } = this.props.navigation;
 
     this.setState({ refreshing: true });
     backgroundSync()
       .then((decks) => {
         this.setState({ decks, refreshing: false });
       })
-      .catch((err) => navigation.navigate('ErrorPage', { err }));
+      .catch((err) => navigate('ErrorPage', { err }));
   };
 
   initialSetup = (notifications) => {
@@ -127,10 +124,10 @@ class Home extends React.Component {
       <Deck
         key={deck.id}
         id={deck.id}
+        cards={deck.card}
         deckCoverImage={deck.coverImageUrl}
         deckTitle={deck.title}
-        navigation={navigation}
-        cards={deck.card}
+        navigate={navigation.navigate}
         syncState={this.syncState}
       />
     ));
@@ -213,7 +210,7 @@ const StackNavigator = createStackNavigator(
     },
     Quiz: {
       screen: Quiz,
-      navigationOptions: ({ navigation }) => ({
+      navigationOptions: () => ({
         headerStyle: {
           backgroundColor: purple,
         },

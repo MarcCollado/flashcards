@@ -69,7 +69,6 @@ class Toast extends React.Component {
   render() {
     const { opacity, position } = this.state;
     const { type } = this.props;
-    console.log(type);
 
     return (
       <Animated.View style={[styles.container, { opacity, bottom: position }]}>

@@ -61,7 +61,7 @@ class AddDeck extends React.Component {
     const maxLength = 40;
 
     if (loading === true) {
-      return <ActivityIndicator size="large" color={blue} />;
+      return <ActivityIndicator size="large" color={blue} top={100} />;
     }
 
     return (

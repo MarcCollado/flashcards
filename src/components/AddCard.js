@@ -57,7 +57,7 @@ class AddCard extends React.Component {
     const maxLength = 140;
 
     if (loading === true) {
-      return <ActivityIndicator size="large" color={blue} />;
+      return <ActivityIndicator size="large" color={blue} top={100} />;
     }
 
     return (

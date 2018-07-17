@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   RefreshControl,
+  ActivityIndicator,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -8,7 +9,6 @@ import {
 import { createStackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { AppLoading } from 'expo';
 import { Feather } from '@expo/vector-icons';
 // import components
 import AddCard from './src/components/AddCard';
@@ -144,7 +144,7 @@ class Home extends React.Component {
     }
 
     if (loading) {
-      return <AppLoading />;
+      return <ActivityIndicator size="large" color={blue} top={100} />;
     }
 
     return (

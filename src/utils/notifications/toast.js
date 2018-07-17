@@ -24,41 +24,56 @@ class Toast extends React.Component {
     position: new Animated.Value(-60),
   };
 
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
     const { opacity, position } = this.state;
+    const { type } = this.props;
 
-    Animated.sequence([
-      Animated.parallel([
-        Animated.timing(opacity, {
-          toValue: 1,
-          duration: 1000,
-        }),
-        Animated.timing(position, {
-          toValue: 30,
-          duration: 1000,
-        }),
-      ]),
-      Animated.delay(2000),
-      Animated.parallel([
-        Animated.timing(position, {
-          toValue: -70,
-          duration: 500,
-        }),
-        Animated.timing(opacity, {
-          toValue: 0,
-          duration: 500,
-        }),
-      ]),
-    ]).start();
+    if (prevProps.type && prevProps.type !== type) {
+      Animated.sequence([
+        Animated.parallel([
+          Animated.timing(opacity, {
+            toValue: 1,
+            duration: 1000,
+          }),
+          Animated.timing(position, {
+            toValue: 30,
+            duration: 1000,
+          }),
+        ]),
+        Animated.delay(2000),
+        Animated.parallel([
+          Animated.timing(position, {
+            toValue: -60,
+            duration: 500,
+          }),
+          Animated.timing(opacity, {
+            toValue: 0,
+            duration: 500,
+          }),
+        ]),
+      ]).start();
+    }
+  }
+
+  createMessage = (type) => {
+    switch (type) {
+      case 'newDeck':
+        return `A new deck was created`;
+      case 'newCard':
+        return `The card was added to the deck`;
+      default:
+        return null;
+    }
   }
 
   render() {
     const { opacity, position } = this.state;
-    const { children } = this.props;
+    const { type } = this.props;
+    console.log(type);
 
     return (
       <Animated.View style={[styles.container, { opacity, bottom: position }]}>
-        <NotificationText>{children}</NotificationText>
+        <NotificationText>{this.createMessage(type)}</NotificationText>
       </Animated.View>
     );
   }
@@ -67,10 +82,11 @@ class Toast extends React.Component {
 const NotificationText = styled(Body)`
   margin: 5px 0px 0px 20px;
   align-self: center;
+  font-size: 14px;
 `;
 
 Toast.propTypes = {
-  children: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default Toast;

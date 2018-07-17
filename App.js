@@ -43,6 +43,7 @@ class Home extends React.Component {
     loading: true,
     notifications: false,
     refreshing: false,
+    // 'ready', 'newDeck', 'newCard'
     toast: null,
   };
 
@@ -55,7 +56,7 @@ class Home extends React.Component {
           decks,
           loading: false,
           refreshing: false,
-          toast: null,
+          toast: 'ready',
         }));
       })
       .catch((err) => navigation.navigate('ErrorPage', { err }));
@@ -133,17 +134,6 @@ class Home extends React.Component {
     ));
   };
 
-  renderToast = (message) => {
-    switch (message) {
-      case 'newDeck':
-        return <Toast>A new deck was created 👍</Toast>;
-      case 'newCard':
-        return <Toast>The card was added to the deck 👍</Toast>;
-      default:
-        return null;
-    }
-  };
-
   render() {
     const {
       loading, notifications, refreshing, toast,
@@ -170,7 +160,7 @@ class Home extends React.Component {
         }
       >
         {this.renderDecks()}
-        {toast && this.renderToast(toast)}
+        {toast && <Toast type={toast} />}
       </ScrollView>
     );
   }

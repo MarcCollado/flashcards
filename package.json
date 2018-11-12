@@ -18,6 +18,19 @@
   "jest": {
     "preset": "jest-expo"
   },
+  "babel": {
+    "presets": [
+      "babel-preset-expo",
+      "react-native-dotenv"
+    ],
+    "env": {
+      "development": {
+        "plugins": [
+          "transform-react-jsx-source"
+        ]
+      }
+    }
+  },
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
     "expo": "^27.0.1",

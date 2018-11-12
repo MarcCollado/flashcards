@@ -30,22 +30,26 @@ Because this is an iOS application, in order to run it on your local machine mak
 * [iOS simulator](https://docs.expo.io/versions/v28.0.0/introduction/installation#ios-simulator)
 * [Watchman](https://facebook.github.io/watchman/docs/install.html)
 
+Watchman will probably require the Command Line Tools. To install them just run `xcode-select --install` in the terminal with Xcode already installed.
+
+Finally, if this is the first time you use Xcode, launch Xcode, go to Preferences > Locations and set the Command Line Tools to the ones you just installed in the step above.
+
 Installing [Node.js](https://nodejs.org/en/) is entirely optional since the production version of the app features a [GraphQL API](https://graphql.org) in combination with a [MongoDB](https://www.mongodb.com) data base and has been already deployed in [Heroku](https://www.heroku.com) — more on that later.
 
 ### Installing
 Clone the repository, then move to the newly created `flashcards` directory and finally install all the necessary packages by running `npm install`:
 
 ```
-git clone REPO_URL
+git clone https://github.com/MarcCollado/flashcards.git
 cd flashcards
 npm install
 ```
 
 ### Running the app
-Once all the packages have been installed, initialize the app by running `npm run iOS`. This will launch the iOS simulator and start the app.
+Once all the packages have been installed, initialize the app by running `npm run ios`. This will launch the iOS simulator and start the app.
 
 ```
-npm run iOS
+npm run ios
 ```
 
 **👨‍💻 Pro Tip:** although the app looks great on all iOS devices, from the beginning it was developed to get the most out of the iPhone X screen size. Therefore, if you are running the app on the iOS simulator, it is highly recommended to do it with an iPhone X.

@@ -62,16 +62,25 @@ Despite the app fetches all the information from the server it can also run offl
 **👨‍💻 Pro Tip:** if you want to run the server locally instead of using the production version, you might be interested in checking [this](https://github.com/MarcCollado/flashcards-api) out. In such case, make sure to update the API endpoint by going to `./src/utils/api/api.js` and switch the API parameter in line 12 to be `DEV_URL`.
 
 
-## How It Works
-TBD...
+## App Functionality
+### Home
+The primary view, seen when the app loads, is a list of created decks which includes the name of each deck and the number of cards.
+Tapping on a deck in the list should route to an individual deck view.
 
-### Ask For Notifications
-TBD...
-### Decks
-TBD...
-### Deck Details
-TBD...
+### Deck
+The individual deck view features:
+* Deck title
+* Number of cards in the deck
+* Option to start a quiz for that deck
+* Option to add a new question to the deck
+
+From the home page, the user is also able to create a new deck.
+
 ### Quiz
-TBD...
-## Add Deck and Card
-TBD...
+Pressing the 'Start quiz' routes the user to the Quiz mode, which starts with a question from the selected deck — the question flips upon tap, to display the answer — and the ability to mark the questions as right or wrong.
+
+When the last question is answered, the user score is displayed as the number of questions answered correctly.
+
+### Other goodies
+* Local notifications are generated at a specific time if the user hasn’t completed at least one quiz for that day.
+* A random image pulled from the Unsplash API is assigned upon deck creation.
